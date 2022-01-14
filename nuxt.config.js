@@ -49,16 +49,12 @@ export default {
     proxyHeaders: false
   },
   proxy: {
-    // '/': {
-    //   target: 'https://www.transfermarkt.ru',
-    //   changeOrigin: true,
-    // },
-    '/player': {
-      target: 'https://www.sofascore.com/',
+    '/api': {
+      target: 'https://api.sofascore.com/',
       changeOrigin: true,
     },
-    '/niklas-sule': {
-      target: 'https://www.transfermarkt.ru/',
+    '/StatisticsFeed': {
+      target: 'https://ru.whoscored.com/',
       changeOrigin: true
     }
   },
