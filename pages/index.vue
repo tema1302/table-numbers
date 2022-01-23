@@ -79,10 +79,10 @@
         //-     span.range {{ possessionLost }}
         //-       span.range-width(:style="{ width: overallWidth.possessionLost[idx] + '%' }")
 
-        //- .cols-comparison(v-if="overallNorm && overallNorm.length > 0", v-for="(value, statName) in statNames" :key="value")
-        //-   .stat-legend.possessionL.mx-1.py-3 {{ value }}
-        //-   .stat-value.possessionL.mx-1.py-3(v-for="(seasonStats, idx) in overallNorm" :key="idx")
-        //-     span.range {{ seasonStats[statName].toFixed(1) }}
+        .cols-comparison(v-if="overallNorm && overallNorm.length > 0", v-for="(value, statName) in statNames" :key="value")
+          .stat-legend.possessionL.mx-1.py-3 {{ value }}
+          .stat-value.possessionL.mx-1.py-3(v-for="(seasonStats, idx) in overallNorm" :key="idx")
+            span.range {{ seasonStats[statName].toFixed(1) }}
         //-       span.range-width(:style="{ width: overallWidth.possessionLost[idx] + '%' }")
 </template>
 
@@ -163,8 +163,8 @@ export default {
     overallNorm() {
       const rtn = []
       console.log(rtn)
-      const objWithStats = {}
       for (let i = 0; i < this.firstTournamentWithStats.length; i++) {
+        const objWithStats = {}
         const season = this.firstTournamentWithStats[i]
         for (const statName in season) {
           // среднее значение показателей в процентах, очевидно, высчитывать не нужно
@@ -181,10 +181,6 @@ export default {
           }
         }
         rtn.push(objWithStats)
-        console.log(i)
-        console.log(objWithStats);
-        console.log(rtn)
-
       }
       return rtn
     }
