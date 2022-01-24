@@ -7,83 +7,11 @@
         .season
           .season.mx-1.py-3.stat-legend Сезоны
           .season.mx-1.py-3(v-for="(season, idx) in seasonTournamentYears[0]", :key="idx") {{ season }}
-        //- .xG
-        //- .xA
-        //- .teams
-        //-   .team.mx-1.py-3.stat-legend Команда
-        //-   .team.mx-1.py-3(v-for="(team, idx) in teams", :key="idx") {{ team }}
-        //- .matches
-        //-   .match.mx-1.py-3.stat-legend Матчей в сезоне
-        //-   .match.mx-1.py-3(v-for="(appearance, idx) in overallNorm.appearances" :key="idx") {{ appearance }}
-        //- .matches
-        //-   .match.mx-1.py-3.stat-legend Из них в старте
-        //-   .match.mx-1.py-3(v-for="(matchesInSeason, idx) in overallNorm.matchesStarted" :key="idx") {{ matchesInSeason }}
-        //- .cols-comparison.touches
-        //-   .stat-legend.touch.mx-1.py-3 Касаний / 90мин
-        //-   .stat-value.touch.mx-1.py-3(v-for="(touches, idx) in overall.touches" :key="idx")
-        //-     span.range {{ touches }}
-        //-       span.range-width(:style="{ width: overallWidth.touches[idx] + '%' }")
-        //- .cols-comparison.totalPasses
-        //-   .stat-legend.accurateP.mx-1.py-3 Пасов / 90мин
-        //-   .stat-value.accurateP.mx-1.py-3(v-for="(totalPasses, idx) in overall.totalPasses" :key="idx")
-        //-     span.range {{ totalPasses }}
-        //-       span.range-width(:style="{ width: overallWidth.totalPasses[idx] + '%' }")
-        //- .cols-comparison.accuratePassesPercentage
-        //-   .stat-legend.accuratePP.mx-1.py-3 % успешных пасов / 90мин
-        //-   .stat-value.accuratePP.mx-1.py-3(v-for="(accuratePassesPercentage, idx) in overall.accuratePassesPercentage" :key="idx")
-        //-     span.range {{ accuratePassesPercentage }}%
-        //-       span.range-width(:style="{ width: overallWidth.accuratePassesPercentage[idx] + '%' }")
-        //- .cols-comparison.aerialDuelsWonPercentage
-        //-   .stat-legend.aerialDWP.mx-1.py-3 % выигранных воздушных единоборств
-        //-   .stat-value.aerialDWP.mx-1.py-3(v-for="(aerialDuelsWonPercentage, idx) in overall.aerialDuelsWonPercentage" :key="idx")
-        //-     span.range {{ aerialDuelsWonPercentage }}%
-        //-       span.range-width(:style="{ width: overallWidth.aerialDuelsWonPercentage[idx] + '%' }")
-        //- .cols-comparison.groundDuelsWon
-        //-   .stat-legend.groundDW.mx-1.py-3 Выигранных наземных дуэлей
-        //-   .stat-value.groundDW.mx-1.py-3(v-for="(groundDuelsWon, idx) in overall.groundDuelsWon" :key="idx")
-        //-     span.range {{ groundDuelsWon }}
-        //-       span.range-width(:style="{ width: overallWidth.groundDuelsWon[idx] + '%' }")
-        //- .cols-comparison.groundDuelsWonPercentage
-        //-   .stat-legend.groundDW.mx-1.py-3 % успешных наземных дуэлей
-        //-   .stat-value.groundDW.mx-1.py-3(v-for="(groundDuelsWonPercentage, idx) in overall.groundDuelsWonPercentage" :key="idx")
-        //-     span.range {{ groundDuelsWonPercentage }}%
-        //-       span.range-width(:style="{ width: overallWidth.groundDuelsWonPercentage[idx] + '%' }")
-        //- .cols-comparison.longBalls
-        //-   .stat-legend.lB.mx-1.py-3 Длинных передачи / 90мин
-        //-   .stat-value.lB.mx-1.py-3(v-for="(totalLongBalls, idx) in overall.totalLongBalls" :key="idx")
-        //-     span.range {{ totalLongBalls }}
-        //-       span.range-width(:style="{ width: overallWidth.totalLongBalls[idx] + '%' }")
-        //- .cols-comparison.accurateLongBallsPercentage
-        //-   .stat-legend.lB.mx-1.py-3 % успешных длинных передач / 90мин
-        //-   .stat-value.lB.mx-1.py-3(v-for="(accurateLongBallsPercentage, idx) in overall.accurateLongBallsPercentage" :key="idx")
-        //-     span.range {{ accurateLongBallsPercentage }}%
-        //-       span.range-width(:style="{ width: overallWidth.accurateLongBallsPercentage[idx] + '%' }")
-        //- .cols-comparison.interceptions
-        //-   .stat-legend.interc.mx-1.py-3 Перехватов / 90мин
-        //-   .stat-value.interc.mx-1.py-3(v-for="(interceptions, idx) in overall.interceptions" :key="idx")
-        //-     span.range {{ interceptions }}
-        //-       span.range-width(:style="{ width: overallWidth.interceptions[idx] + '%' }")
-        //- .cols-comparison.tackles
-        //-   .stat-legend.accurateP.mx-1.py-3 Отборов за игру
-        //-   .stat-value.accurateP.mx-1.py-3(v-for="(tackles, idx) in overall.tackles" :key="idx")
-        //-     span.range {{ +tackles.toFixed(1) }}
-        //-       span.range-width(:style="{ width: overallWidth.tackles[idx] + '%' }")
-        //- //- .cols-comparison.tacklesOn90
-        //- //-   .stat-legend.accurateP.mx-1.py-3 % успешных отборов за игру
-        //- //-   .stat-value.accurateP.mx-1.py-3(v-for="(tacklesOn90, idx) in overall.tacklesOn90" :key="idx")
-        //- //-     span.range {{ tacklesOn90 }}%
-        //- //-       span.range-width(:style="{ width: overallWidth.tacklesOn90[idx] + '%' }")
-        //- .cols-comparison.possessionLost
-        //-   .stat-legend.possessionL.mx-1.py-3 Утрачено владение / 90мин
-        //-   .stat-value.possessionL.mx-1.py-3(v-for="(possessionLost, idx) in overall.possessionLost" :key="idx")
-        //-     span.range {{ possessionLost }}
-        //-       span.range-width(:style="{ width: overallWidth.possessionLost[idx] + '%' }")
-
-        .cols-comparison(v-if="overallNorm && overallNorm.length > 0", v-for="(value, statName) in statNames" :key="value")
+        .cols-comparison(v-if="isLoaded", v-for="(value, statName) in statNames" :key="value")
           .stat-legend.possessionL.mx-1.py-3 {{ value }}
           .stat-value.possessionL.mx-1.py-3(v-for="(seasonStats, idx) in overallNorm" :key="idx")
-            span.range {{ seasonStats[statName].toFixed(1) }}
-        //-       span.range-width(:style="{ width: overallWidth.possessionLost[idx] + '%' }")
+            span.range {{ statName.includes('Percentage') ? `${seasonStats[statName]} %` : seasonStats[statName] }}
+              span.range-width(v-if="Object.keys(overallWidth).length > 0", :style="{ width: overallWidth[statName][idx] + '%' }")
 </template>
 
 <script>
@@ -95,31 +23,7 @@ export default {
       seasonTournamentIds: [ [], [] ],
       seasonTournamentYears: [ [], [] ],
       firstAndSecondTournamentsId: [],
-      // seasonsItem: ['2019/2020', '2020/2021', '2021/2022'],
-      // // seasonsItem: ['2018/2019', '2019/2020', '2020/2021', '2021/2022'],
-      // years: [2018, 2019, 2020, 2021],
-      // // sofascore. Take an average values in this tournament
-      // bundesIdSofa: 35,
-      // bundesSeasonsSofa: [17597, 23538, 28210, 37166],
-      // premLeague: 17,
-      // // premLeagueSeasonsSofa: [17359, 23776, 29415, 37036],
-      // premLeagueSeasonsSofa: [23776, 29415, 37036],
-      // chLeagueIdSofa: 7,
-      // // chLeagueSeasonsSofa: [17351, 23766, 29267, 36886], for Sule
-      // chLeagueSeasonsSofa: [23766, 29267, 36886],
-      // suleId: 168937,
-      // rudigerId: 142622,
-
-      // sofa stats
-      teams: [],
-      // leagues: [
-      //   {
-      //     17: [17359, 23776, 29415, 37036]
-      //   },
-      //   {
-      //     7: [23766, 29267, 36886]
-      //   }
-      // ],
+      isLoaded: false,
       statNames: {
         appearances: 'Матчей в сезоне',
         matchesStarted: 'Из них в старте',
@@ -135,25 +39,15 @@ export default {
         groundDuelsWonPercentage: '% успешных наземных дуэлей',
         possessionLost: 'Утрачено владение за игру',
       },
-      // twoArrayWithStats: [ {app:33, touch:73}, {app:21, touch:84}... ]
       twoArrayWithStats: [ [], [] ],
+      statsForBlocksWidth: [ {}, {}
+        // { appearances: [52, 22, 48, 32] ...},
+        // { appearances: [52, 22, 48, 32] ...},
+      ],
     }
   },
 
   computed: {
-    overallWidth() {
-      const rtn = {}
-      const overallArr = Object.keys(this.statNames)
-      for (const statName of overallArr) {
-        const statValues = this.overall[statName]
-        const maxValue = Math.max(...statValues)
-        const statValuesPersentage = statValues.map(value => {
-          return Math.round(value / maxValue * 100)
-        })
-        rtn[statName] = statValuesPersentage
-      }
-      return rtn
-    },
     firstTournamentWithStats() {
       return this.twoArrayWithStats[0]
     },
@@ -162,28 +56,60 @@ export default {
     },
     overallNorm() {
       const rtn = []
-      console.log(rtn)
       for (let i = 0; i < this.firstTournamentWithStats.length; i++) {
         const objWithStats = {}
         const season = this.firstTournamentWithStats[i]
         for (const statName in season) {
           // среднее значение показателей в процентах, очевидно, высчитывать не нужно
           if (statName.includes('Percentage')) {
-            const meanValue = ((this.firstTournamentWithStats[i][statName] + this.secondTournamentWithStats[i][statName]) / 2).toFixed(1)
+            // const meanValue = ((this.firstTournamentWithStats[i][statName] + this.secondTournamentWithStats[i][statName]) / 2).toFixed(1)
+            const meanValue = (this.firstTournamentWithStats[i][statName]).toFixed(1)
             objWithStats[statName] = meanValue
           // среднее значение появлений в старте тоже
           } else if (statName === 'matchesStarted' || statName === 'appearances') {
-            const value = this.firstTournamentWithStats[i][statName] + this.secondTournamentWithStats[i][statName]
+            const value = Math.round(this.firstTournamentWithStats[i][statName] + this.secondTournamentWithStats[i][statName])
             objWithStats[statName] = value
           } else {
             const meanValue = ((this.firstTournamentWithStats[i][statName] + this.secondTournamentWithStats[i][statName]) / (this.firstTournamentWithStats[i].appearances + this.secondTournamentWithStats[i].appearances)).toFixed(2)
             objWithStats[statName] = meanValue
           }
         }
+        console.log(this.overallWidth)
+        console.log(this.statsForBlocksWidth)
         rtn.push(objWithStats)
+
       }
       return rtn
-    }
+    },
+    overallWidth() {
+      const rtn = {}
+      console.log('this.statsForBlocksWidth')
+      console.log(this.statsForBlocksWidth)
+      for (const statName in this.statsForBlocksWidth[0]) {
+        console.log(this.statsForBlocksWidth)
+        const statValues = []
+        for (let i = 0; i < this.statsForBlocksWidth[0][statName].length; i++) {
+          if (statName.includes('Percentage')) {
+            // statValues.push((this.statsForBlocksWidth[0][statName][i] + this.statsForBlocksWidth[1][statName][i]) / 2)
+            statValues.push(this.statsForBlocksWidth[0][statName][i])
+          } else if (statName === 'matchesStarted' || statName === 'appearances') {
+            statValues.push(this.statsForBlocksWidth[0][statName][i] + this.statsForBlocksWidth[1][statName][i])
+          } else {
+            statValues.push((this.statsForBlocksWidth[0][statName][i] + this.statsForBlocksWidth[1][statName][i]) / (this.statsForBlocksWidth[0].appearances[i] + this.statsForBlocksWidth[1].appearances[i]))
+          }
+        }
+
+        console.log(this.statsForBlocksWidth[0].appearances)
+        const maxValue = Math.max(...statValues)
+        console.log(maxValue)
+        const statValuesPersentage = statValues.map(value => {
+          return Math.round(value / maxValue * 100)
+        })
+        console.log(statValuesPersentage)
+        rtn[statName] = statValuesPersentage
+      }
+      return rtn
+    },
   },
   watch: {
     async seasonTournamentIds() {
@@ -192,55 +118,29 @@ export default {
           for (const seasonId of this.seasonTournamentIds[idx]) {
             const response = await this.$axios.get(`/api/v1/player/${this.playerId}/unique-tournament/${tournamentId}/season/${seasonId}/statistics/overall`)
             const statsResponce = response.data.statistics
-            // objWithStats для будущего { app:33, touch:73 }
+            console.log(statsResponce)
+            // данные для длины блоков
+            for (const statName in this.statNames) {
+              if (!Array.isArray(this.statsForBlocksWidth[idx][statName])) {
+                this.statsForBlocksWidth[idx][statName] = []
+              }
+              this.statsForBlocksWidth[idx][statName].push(Math.round(statsResponce[statName]))
+            }
             const objWithStats = {}
             for (const statName in this.statNames) {
               if (Object.hasOwnProperty.call(this.statNames, statName)) {
-                // цель: в overallEPL добавляем объекты с ключом-значением
-                // overallEPL[0][appearences] = 33
-                // делаем что-то вроде
-                // { app:33, touch:73 }
                 objWithStats[statName] = Number(statsResponce[statName])
               }
             }
             this.twoArrayWithStats[idx].push(objWithStats)
           }
         }
+
+        this.isLoaded = true
       }
-      console.log(this.overallNorm)
     }
   },
-  // async beforeMount() {
-  //   console.log('a');
-  //   await this.fetchSofaData()
-  // },
   methods: {
-    // async fetchSofaData() {
-    //   try {
-    //     console.log('b');
-    //     for (const seasonId of this.seasonTournamentIds) {
-    //       const response = await this.$axios.get(`/api/v1/player/${this.playerId}/unique-tournament/${this.uniqueTournament}/season/${seasonId}/statistics/overall`)
-    //       const stats = response.data.statistics
-
-    //       this.bundes.appearances.push(stats.appearances)
-    //       this.bundes.matchesStarted.push(stats.matchesStarted)
-    //       this.bundes.touches.push(stats.touches)
-    //       this.bundes.totalPasses.push(stats.totalPasses)
-    //       this.bundes.totalLongBalls.push(stats.totalLongBalls)
-    //       this.bundes.accuratePassesPercentage.push(stats.accuratePassesPercentage)
-    //       this.bundes.aerialDuelsWonPercentage.push(stats.aerialDuelsWonPercentage)
-    //       this.bundes.accurateLongBallsPercentage.push(stats.accurateLongBallsPercentage)
-    //       this.bundes.interceptions.push(stats.interceptions)
-    //       this.bundes.tackles.push(stats.tackles)
-    //       this.bundes.groundDuelsWon.push(stats.groundDuelsWon)
-    //       this.bundes.groundDuelsWonPercentage.push(stats.groundDuelsWonPercentage)
-    //       this.bundes.possessionLost.push(stats.possessionLost)
-    //     }
-    //     this.doOverall()
-    //   } catch (e) {
-    //     console.error(e)
-    //   }
-    // },
     async fetchSeasonsTournament() {
       // по id игрока получаем id сезона в конкретной лиге. Зачастую нас будет интересовать нац лига, т.е. первая в списке
       // (возможно, придется добавлять условие для того, какую лигу я ожидаю увидеть, и вставлять название лиги в проверку, передавая через параметры)
@@ -276,36 +176,6 @@ export default {
       } catch (e) {
         console.error(e)
       }
-    },
-
-    doOverall() {
-      this.overall.appearances = this.bundes.appearances.map((val, idx) => val + this.chL.appearances[idx])
-
-      this.overall.matchesStarted = this.bundes.matchesStarted.map((val, idx) => val + this.chL.matchesStarted[idx])
-
-      this.overall.touches = this.bundes.touches.map((val, idx) => Math.round((val / this.bundes.appearances[idx] + this.chL.touches[idx] / this.chL.appearances[idx]) / 2))
-
-      this.overall.totalPasses = this.bundes.totalPasses.map((totalPasses, idx) => Math.round((totalPasses / this.bundes.appearances[idx] + this.chL.totalPasses[idx] / this.chL.appearances[idx]) / 2))
-
-      this.overall.totalLongBalls = this.bundes.totalLongBalls.map((totalLongBalls, idx) => ((totalLongBalls / this.bundes.appearances[idx] + this.chL.totalLongBalls[idx] / this.chL.appearances[idx]) / 2).toFixed(1))
-
-      this.overall.accuratePassesPercentage = this.bundes.accuratePassesPercentage.map((val, idx) => Math.round((val + this.chL.accuratePassesPercentage[idx]) / 2))
-
-      this.overall.aerialDuelsWonPercentage = this.bundes.aerialDuelsWonPercentage.map((val, idx) => Math.round((val + this.chL.aerialDuelsWonPercentage[idx]) / 2))
-
-      this.overall.accurateLongBallsPercentage = this.bundes.accurateLongBallsPercentage.map((val, idx) => Math.round((val + this.chL.accurateLongBallsPercentage[idx]) / 2))
-
-      this.overall.interceptions = this.bundes.interceptions.map((interceptions, idx) => ((interceptions / this.bundes.appearances[idx] + this.chL.interceptions[idx] / this.chL.appearances[idx]) / 2).toFixed(1))
-
-      this.overall.tackles = this.bundes.tackles.map((tackles, idx) => +(tackles + this.chL.tackles[idx]))
-
-      this.overall.tacklesOn90 = this.bundes.tackles.map((tackles, idx) => ((tackles / this.bundes.appearances[idx] + this.chL.tackles[idx] / this.chL.appearances[idx]) / 2).toFixed(1))
-
-      this.overall.groundDuelsWon = this.bundes.groundDuelsWon.map((groundDuelsWon, idx) => ((groundDuelsWon / this.bundes.appearances[idx] + this.chL.groundDuelsWon[idx] / this.chL.appearances[idx]) / 2).toFixed(1))
-
-      this.overall.groundDuelsWonPercentage = this.bundes.groundDuelsWonPercentage.map((val, idx) => Math.round((val + this.chL.groundDuelsWonPercentage[idx]) / 2))
-
-      this.overall.possessionLost = this.bundes.possessionLost.map((possessionLost, idx) => ((possessionLost / this.bundes.appearances[idx] + this.chL.possessionLost[idx] / this.chL.appearances[idx]) / 2).toFixed(1))
     },
   }
 }
