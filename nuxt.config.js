@@ -14,7 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-32x32.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -38,7 +38,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -46,7 +46,7 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
     proxy: true,
-    proxyHeaders: false
+    proxyHeaders: false,
   },
   proxy: {
     '/api': {
@@ -55,8 +55,8 @@ export default {
     },
     '/StatisticsFeed': {
       target: 'https://ru.whoscored.com/',
-      changeOrigin: true
-    }
+      changeOrigin: true,
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
