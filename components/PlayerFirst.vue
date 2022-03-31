@@ -244,6 +244,24 @@ export default {
     },
     combineIndicatorsTotal() {
       if (Object.keys(this.overallStatByMatch).length !== 0) {
+        // попытка превратить два массива в один объект
+        // const changingTotal = {
+        //   matchesStarted: 'appearances',
+        //   accurateFinalThirdPasses: 'totalPasses',
+        //   accuratePasses: 'totalPasses',
+        // }
+        // const arrTotal = Object.entries(changingTotal)
+        // const arrEngNames = Object.keys(this.combinedIndicatorsName)
+        // for (const [idx, combinedPair] of arrTotal) {
+          // [
+          //   ['matchesStarted', 'appearances'],
+          //   ['accurateFinalThirdPasses', 'totalPasses'],
+          //   ['accuratePasses', 'totalPasses'],
+          // ]
+        //   const smallerVName = combinedPair[0]
+        //   const biggerVName = combinedPair[1]
+        //   const indicatorName = arrEngNames[idx]
+        // }
 
         const statMatch = this.overallStatByMatch
         const arrEngNames = Object.keys(this.combinedIndicatorsName)
