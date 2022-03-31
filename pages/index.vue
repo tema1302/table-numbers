@@ -1,7 +1,7 @@
 <template lang="pug">
 .container-fluid.px-10.mx-auto
   .min-h-screen.flex.items-start.justify-center
-    PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :key="idx")
+    PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :key="name")
 </template>
 
 <script>
@@ -12,9 +12,16 @@ export default {
   data() {
     return {
       players: {
-        'Н’Голо Канте': 234148,
-        'Деклан Райс': 856714,
-        'Орельен Тчуамени': 859025,
+        Casemiro: 122951,
+        'Toni Kroos': 26502,
+        'Luka Modrić': 15466,
+        // Neymar: 124712,
+        // 'Kylian Mbappé': 826643,
+        // 'Jérémie Boga': 367056,
+        // 'Mohamed Salah': 159665,
+        // 'Yannick Carrasco': 182001,
+        // 'Jack Grealish': 189061,
+        // 'Raheem Sterling': 138534,
       },
     }
   },
@@ -23,10 +30,6 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Tenor+Sans&family=Open+Sans+Condensed:wght@300&display=swap');
-$green: #07d0186e;
-$yellow: #faf20182;
-$orange: #fa8e01c9;
-$red: #fa260193;
 
 .container-fluid {
   background-image: url('./static/123.jpg');

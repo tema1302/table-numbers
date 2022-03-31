@@ -12,11 +12,21 @@
       //- .season
       //-   .season.mx-1.py-3.stat-legend Сезоны
       //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      .cols-comparison(v-if="isLoaded", v-for="(value, statName) in statNames" :key="value")
-        .stat-legend.mx-1.py-3 {{ value }}
-        .stat-value.mx-1.py-2(v-for="(value, i) in overallStatByMatch[statName]" :key="i")
+      //- .season
+      //-   .season.mx-1.py-3.stat-legend Сезоны
+      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
+
+      //- .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
+      //-   .stat-legend.mx-1.relative
+      //-     .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
+      //-   .stat-value.mx-1.py-2(v-for="(val2, i) in overallStatByMatch[statName]" :key="val2")
+      //-     span.range {{ statName.includes('Percentage') ? `${val2} %` : val2 }}
+      .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
+        .stat-legend.mx-1.relative
+          .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
+        .stat-value.mx-1.py-2(v-for="(value, i) in overallStatWithCombinedIndicators[statName]" :key="value")
           span.range {{ statName.includes('Percentage') ? `${value} %` : value }}
-            span.range-width(v-if="Object.keys(overallWidth).length > 0", :style="{ width: overallWidth[statName][i] + '%' }")
+            span.range-width(:style="{ width: overallWidth[statName][i] + '%' }")
 </template>
 
 <script>
@@ -40,23 +50,24 @@ export default {
       tournamentsIds: [],
       isLoaded: false,
       needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      // needSeasons: ['21/22'],
       statNames: {
         appearances: 'Матчей в сезоне',
 
-        // matchesStarted: 'Из них в старте',
-        // touches: 'Касаний за игру',
-        // totalPasses: 'Пасов за игру',
+        matchesStarted: 'Выходов в старте',
+        touches: 'Касаний (действий с мячом) за игру',
+        totalPasses: 'Пасов за игру',
+        'accuratePasses': 'Успешных передач за игру',
+        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
+        totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
 
-        // totalOppositionHalfPasses: 'Пасов на чужую половину поля',
-        // accuratePassesPercentage: '% успешных пасов',
+        // bigChancesCreated: 'Явных голевых моментов создано за игру',
+        // assists: 'Ассистов за игру',
 
         // successfulDribbles: 'Успешного дриблинга за игру',
         // successfulDribblesPercentage: '% успешного дриблинга',
 
-        // bigChancesCreated: 'Явных голевых моментов создано',
-        // bigChancesMissed: 'Упущено голевых моментов',
-        // assists: 'Ассистов',
-        // possessionWonAttThird: 'Возвратов владения (финальная треть)',
+        // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
 
         // totalShots: 'Ударов за игру',
 
@@ -64,66 +75,67 @@ export default {
         // shotsOnTarget: 'Ударов по воротам за игру',
         // shotsOffTarget: 'Ударов мимо ворот за игру',
 
-        // goals: 'Всего голов',
+        // bigChancesMissed: 'Упущено голевых моментов за игру',
+        // goals: 'Всего голов за игру',
+        // penaltyGoals: 'Голов из пенальти за игру',
         // goalsAssistsSum: 'Гол + пас',
-        // keyPasses: 'Ключевых передач за игру',
-
-        // penaltyGoals: 'Голов из пенальти',
         // goalConversionPercentage: 'Конвертация ударов в голы в %',
-
 
         // totalLongBalls: 'Длинных передачи за игру',
         // accurateLongBallsPercentage: '% успешных длинных передач',
         // accurateChippedPasses: 'Успешных пасов с подсечкой',
-
-        // accurateFinalThirdPasses: 'Успешных передач в финальную треть',
+        // keyPasses: 'Ключевых передач за игру',
 
         // aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
         // aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
 
         // groundDuelsWon: 'Выигранных наземных дуэлей за игру',
         // groundDuelsWonPercentage: '% выигранных наземных дуэлей',
-
+        // possessionLost: 'Потерей мяча за игру',
 
         // на всякий случай
-        possessionLost: 'Потерей мяча за игру',
-        interceptions: 'Перехватов за игру',
-        tackles: 'Отборов за игру',
-        clearances: 'Выносов за игру',
 
+        // interceptions: 'Перехватов за игру',
+        // tackles: 'Отборов за игру',
+        // clearances: 'Выносов за игру',
         // blockedShots: 'Заблокировано ударов за игру',
+        // offsides: 'Офсайдов',
+
         // cleanSheet: 'Сухарей',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
       overallStatByMatch: {},
+      smallerIndicators: [
+        'matchesStarted',
+        // 'totalOppositionHalfPasses',
+        'accurateFinalThirdPasses',
+        'accuratePasses',
+      ],
+      biggerIndicators: [
+        'appearances',
+        // 'totalPasses',
+        'totalPasses',
+        'totalPasses',
+      ],
+      combinedIndicatorsName: {
+        matchesStarted: 'Матчей в старте',
+        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
+        accuratePasses: 'Успешных передач за игру',
+      },
+      combinedIndicators: {},
+      overallStatWithCombinedIndicators: {},
+
+      overallWidth: {},
     }
   },
 
-  computed: {
-    overallWidth() {
-      const rtn = {}
-      const overallArr = Object.keys(this.statNames)
-      for (const statName of overallArr) {
-        const statValues = this.overallStatByMatch[statName]
-        // для бичей, у которых точность паса низкая
-        // if (statName === 'accuratePassesPercentage') {
-        //   rtn[statName] = statValues
-        //   continue
-        // }
-        const maxValue = Math.max(...statValues)
-        const statValuesPersentage = statValues.map((value) => {
-          return Math.round((value / maxValue) * 100)
-        })
-        rtn[statName] = statValuesPersentage
-      }
-      return rtn
-    },
-  },
+  // computed: {
+  // },
   watch: {
     async seasonTournamentIds() {
       for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
-        console.log(idx)
         console.log(seasonId)
         const response = await this.$axios.get(
           `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
@@ -137,9 +149,11 @@ export default {
           this.tableNumbers[statName].push(statsResponce[statName])
         }
       }
-      this.getOverallStatByMatch()
+      console.log('this.isLoaded')
+
       this.isLoaded = true
-      // console.log(this.overallStatByMatch)
+      this.getStatByMatch()
+      console.log(this.isLoaded)
     },
   },
   methods: {
@@ -191,8 +205,8 @@ export default {
         console.error(e)
       }
     },
-    getOverallStatByMatch() {
-      const rtn = {}
+
+    getStatByMatch() {
       for (const statName in this.tableNumbers) {
         if (Object.hasOwnProperty.call(this.tableNumbers, statName)) {
           const arrStatValue = this.tableNumbers[statName]
@@ -200,14 +214,14 @@ export default {
             statName === 'matchesStarted' ||
             statName === 'appearances' ||
             statName === 'cleanSheet' ||
-            statName === 'assists' ||
-            statName === 'bigChancesCreated' ||
-            statName === 'penaltyGoals' ||
-            statName === 'goals' ||
-            statName === 'bigChancesMissed' ||
+            // statName === 'assists' ||
+            // statName === 'bigChancesCreated' ||
+            // statName === 'penaltyGoals' ||
+            // statName === 'goals' ||
+            // statName === 'bigChancesMissed' ||
             statName === 'goalsAssistsSum'
           ) {
-            rtn[statName] = arrStatValue
+            this.overallStatByMatch[statName] = arrStatValue
           } else {
             const arrStatValueByMatch = arrStatValue.map((statValue, idx) => {
               if (statName.includes('Percentage')) {
@@ -215,22 +229,96 @@ export default {
               } else {
                 return +(
                   statValue / this.tableNumbers.appearances[idx]
-                ).toFixed(2)
+                ).toFixed(1)
               }
             })
             // console.log(statName)
             // console.log(arrStatValueByMatch)
-            rtn[statName] = arrStatValueByMatch
+            this.overallStatByMatch[statName] = arrStatValueByMatch
           }
         }
       }
-      this.overallStatByMatch = rtn
+      console.log('getStatByMatch')
+      console.log(this.overallStatByMatch)
+      this.combineIndicatorsTotal()
+    },
+    combineIndicatorsTotal() {
+      if (Object.keys(this.overallStatByMatch).length !== 0) {
+
+        const statMatch = this.overallStatByMatch
+        const arrEngNames = Object.keys(this.combinedIndicatorsName)
+        for (const [idx, biggerVName] of this.biggerIndicators.entries()) {
+          const smallerVName = this.smallerIndicators[idx]
+          const indicatorName = arrEngNames[idx]
+
+          const arrVal = []
+          for (let i = 0; i < this.needSeasons.length; i++) {
+            const biggerValue = statMatch[biggerVName][i]
+            const smallerValue = statMatch[smallerVName][i]
+            const percentage = ((smallerValue / biggerValue) * 100).toFixed(1)
+            arrVal.push(`${smallerValue}/${biggerValue} (${percentage} %)`)
+          }
+          // this.overallStatByMatch[indicatorName] = arrVal
+          this.combinedIndicators[indicatorName] = arrVal
+        }
+        console.log('combinedIndicators')
+        console.log(this.combinedIndicators)
+      }
+      this.setOverallStatWithCombinedIndicators()
+    },
+    combineIndicatorsPercentage() {},
+    // filterKeyDublicate() {
+    //   for (const statName in this.overallStatByMatch) {
+    //     if (Object.hasOwnProperty.call(this.overallStatByMatch, statName)) {
+    //       const element = this.overallStatByMatch[statName];
+
+    //     }
+    //   }
+    //   const startKeys = Object.keys(this.overallStatByMatch)
+    //   const combinedKeys = Object.keys(this.combinedIndicators)
+    //   this.setOverallStatWithCombinedIndicators()
+    // },
+    setOverallStatWithCombinedIndicators() {
+      console.log('overallStatWithCombinedIndicators')
+      this.overallStatWithCombinedIndicators = Object.assign(
+        this.overallStatByMatch,
+        this.combinedIndicators
+      )
+      console.log(this.overallStatWithCombinedIndicators)
+      this.setOverallWidth()
+    },
+    setOverallWidth() {
+      console.log('overallWidth');
+      const overallArr = Object.keys(this.overallStatWithCombinedIndicators)
+      for (const statName of overallArr) {
+        let statValues = this.overallStatWithCombinedIndicators[statName]
+        if (typeof(statValues[0]) === 'string') {
+          statValues = statValues.map(val => {
+            console.log(val)
+            if (val.slice(-7, -3) === '00.0') return +val.slice(-8, -3)
+            console.log(+val.slice(-7, -3))
+            return +val.slice(-7, -3)
+          })
+        }
+        console.log(statValues)
+        const maxValue = Math.max(...statValues)
+        const statValuesPersentage = statValues.map((value) => {
+          return Math.round((value / maxValue) * 100)
+        })
+        this.overallWidth[statName] = statValuesPersentage
+      }
     },
   },
 }
 </script>
 
 <style lang="scss">
+.component:first-child .cols-comparison .stat-legend {
+  opacity: 1;
+}
+.component .cols-comparison .stat-legend {
+  opacity: 0;
+}
 .stats-table {
   width: 190px;
   padding: 15px;
@@ -258,16 +346,30 @@ export default {
   .cols-comparison:nth-child(6) .stat-value .range-width {
     background-color: #4e50d8c2;
   }
+  .cols-comparison:nth-child(7) .stat-value .range-width {
+    background-color: #4595e195;
+  }
+  .cols-comparison:nth-child(8) .stat-value .range-width {
+    background-color: #8184e6c6;
+  }
+  .cols-comparison:nth-child(9) .stat-value .range-width {
+    background-color: #4e50d8c2;
+  }
   h4 {
-    min-height: 65px;
+    min-height: 60px;
   }
   .stat-legend {
     min-height: 50px;
     font-size: 13px;
     color: rgba($color: #fff, $alpha: 0.85);
-    display: flex;
-    align-items: flex-end;
     line-height: 1;
+    &-text {
+      width: 300%;
+      // text-align: center;
+      // left: 50%;
+      // transform: translateX(-50%);
+      bottom: 20%;
+    }
   }
   .stat-value {
     position: relative;
@@ -276,6 +378,7 @@ export default {
     font-size: 16px;
     font-family: 'Open Sans Condensed', sans-serif;
     .range {
+      font-size: 18px;
       &-width {
         width: 100%;
         height: 75%;
@@ -287,9 +390,16 @@ export default {
       }
     }
   }
-  .matches,
-  .touches {
-    // max-width: 62px;
+  .season {
+    font-family: 'Open Sans Condensed', sans-serif;
+    max-width: 62px;
+    text-align: center;
+    font-size: 18px;
+    &.stat-legend {
+      min-height: 50px;
+      justify-content: center;
+      opacity: 0;
+    }
   }
 }
 </style>
