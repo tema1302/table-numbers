@@ -49,54 +49,58 @@ export default {
       seasonTournamentYears: [],
       tournamentsIds: [],
       isLoaded: false,
-      needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      // needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      needSeasons: ['21/22', '20/21'],
       // needSeasons: ['21/22'],
       statNames: {
         appearances: 'Матчей в сезоне',
 
-        matchesStarted: 'Выходов в старте',
-        touches: 'Касаний (действий с мячом) за игру',
-        totalPasses: 'Пасов за игру',
-        'accuratePasses': 'Успешных передач за игру',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // matchesStarted: 'Выходов в старте',
+        // touches: 'Касаний (действий с мячом) за игру',
+        // 'accuratePasses': 'Успешных передач за игру',
 
+        // totalPasses: 'Пасов за игру',
+
+
+        // accurateFinalThirdPasses: 'Успешных передач в финальной трети',
         // bigChancesCreated: 'Явных голевых моментов создано за игру',
         // assists: 'Ассистов за игру',
 
         // successfulDribbles: 'Успешного дриблинга за игру',
         // successfulDribblesPercentage: '% успешного дриблинга',
 
-        // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
+
 
         // totalShots: 'Ударов за игру',
-
+        // goals: 'Голов за игру',
         // shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
-        // shotsOnTarget: 'Ударов по воротам за игру',
         // shotsOffTarget: 'Ударов мимо ворот за игру',
 
         // bigChancesMissed: 'Упущено голевых моментов за игру',
-        // goals: 'Всего голов за игру',
+
+        // goalConversionPercentage: 'Конвертация ударов в голы в %',
         // penaltyGoals: 'Голов из пенальти за игру',
         // goalsAssistsSum: 'Гол + пас',
-        // goalConversionPercentage: 'Конвертация ударов в голы в %',
 
-        // totalLongBalls: 'Длинных передачи за игру',
+        // accurateLongBalls: 'Успешных длинных передачи за игру',
         // accurateLongBallsPercentage: '% успешных длинных передач',
         // accurateChippedPasses: 'Успешных пасов с подсечкой',
         // keyPasses: 'Ключевых передач за игру',
 
-        // aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
-        // aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
+        // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
+        aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
+        aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
 
-        // groundDuelsWon: 'Выигранных наземных дуэлей за игру',
-        // groundDuelsWonPercentage: '% выигранных наземных дуэлей',
-        // possessionLost: 'Потерей мяча за игру',
+        groundDuelsWon: 'Выигранных наземных дуэлей за игру',
+        groundDuelsWonPercentage: '% выигранных наземных дуэлей',
+        possessionLost: 'Потерей мяча за игру',
 
         // на всякий случай
 
-        // interceptions: 'Перехватов за игру',
-        // tackles: 'Отборов за игру',
+        interceptions: 'Перехватов за игру',
+        tackles: 'Отборов за игру',
+        tacklesWonPercentage: '',
+        // fouls: 'Фолов за игру',
         // clearances: 'Выносов за игру',
         // blockedShots: 'Заблокировано ударов за игру',
         // offsides: 'Офсайдов',
@@ -108,23 +112,46 @@ export default {
       overallStatByMatch: {},
       smallerIndicators: [
         'matchesStarted',
-        // 'totalOppositionHalfPasses',
         'accurateFinalThirdPasses',
         'accuratePasses',
+        'shotsFromOutsideTheBox',
+        'shotsOffTarget',
+        'goals',
       ],
       biggerIndicators: [
         'appearances',
-        // 'totalPasses',
         'totalPasses',
         'totalPasses',
+        'totalShots',
+        'totalShots',
+        'totalShots',
       ],
       combinedIndicatorsName: {
         matchesStarted: 'Матчей в старте',
-        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
         accurateFinalThirdPasses: 'Успешных передач в финальной трети',
         accuratePasses: 'Успешных передач за игру',
+        shotsFromOutsideTheBox: 'Дальних ударов за игру',
+        shotsOffTarget: 'Ударов мимо ворот за игру',
+        goalConversionPercentage: 'Конвертация ударов в голы в %',
       },
       combinedIndicators: {},
+
+      unitedStatNames: [
+        'aerialDuelsWon',
+        'groundDuelsWon',
+        'successfulDribbles',
+        'tackles',
+        'accurateLongBalls',
+      ],
+      unitedPercentageStatNames: [
+        'aerialDuelsWonPercentage',
+        'groundDuelsWonPercentage',
+        'successfulDribblesPercentage',
+        'tacklesWonPercentage',
+        'accurateLongBallsPercentage',
+      ],
+      unitedIndicators: {},
+
       overallStatWithCombinedIndicators: {},
 
       overallWidth: {},
@@ -229,7 +256,7 @@ export default {
               } else {
                 return +(
                   statValue / this.tableNumbers.appearances[idx]
-                ).toFixed(1)
+                ).toFixed(2)
               }
             })
             // console.log(statName)
@@ -238,43 +265,31 @@ export default {
           }
         }
       }
-      console.log('getStatByMatch')
-      console.log(this.overallStatByMatch)
+      // console.log('getStatByMatch')
+      // console.log(this.overallStatByMatch)
       this.combineIndicatorsTotal()
+
     },
     combineIndicatorsTotal() {
       if (Object.keys(this.overallStatByMatch).length !== 0) {
-        // попытка превратить два массива в один объект
-        // const changingTotal = {
-        //   matchesStarted: 'appearances',
-        //   accurateFinalThirdPasses: 'totalPasses',
-        //   accuratePasses: 'totalPasses',
-        // }
-        // const arrTotal = Object.entries(changingTotal)
-        // const arrEngNames = Object.keys(this.combinedIndicatorsName)
-        // for (const [idx, combinedPair] of arrTotal) {
-          // [
-          //   ['matchesStarted', 'appearances'],
-          //   ['accurateFinalThirdPasses', 'totalPasses'],
-          //   ['accuratePasses', 'totalPasses'],
-          // ]
-        //   const smallerVName = combinedPair[0]
-        //   const biggerVName = combinedPair[1]
-        //   const indicatorName = arrEngNames[idx]
-        // }
-
-        const statMatch = this.overallStatByMatch
         const arrEngNames = Object.keys(this.combinedIndicatorsName)
         for (const [idx, biggerVName] of this.biggerIndicators.entries()) {
           const smallerVName = this.smallerIndicators[idx]
           const indicatorName = arrEngNames[idx]
 
+          // console.log(smallerVName)
+          // console.log(biggerVName)
+          // console.log(this.overallStatByMatch)
+          // console.log(smallerVName in this.overallStatByMatch)
+
+          if (!Object.prototype.hasOwnProperty.call(this.overallStatByMatch, smallerVName) || !Object.prototype.hasOwnProperty.call(this.overallStatByMatch, biggerVName)) continue
           const arrVal = []
           for (let i = 0; i < this.needSeasons.length; i++) {
-            const biggerValue = statMatch[biggerVName][i]
-            const smallerValue = statMatch[smallerVName][i]
+
+            const biggerValue = this.overallStatByMatch[biggerVName][i]
+            const smallerValue = this.overallStatByMatch[smallerVName][i]
             const percentage = ((smallerValue / biggerValue) * 100).toFixed(1)
-            arrVal.push(`${smallerValue}/${biggerValue} (${percentage} %)`)
+            arrVal.push(`${smallerValue} / ${biggerValue} (${percentage} %)`)
           }
           // this.overallStatByMatch[indicatorName] = arrVal
           this.combinedIndicators[indicatorName] = arrVal
@@ -282,9 +297,31 @@ export default {
         console.log('combinedIndicators')
         console.log(this.combinedIndicators)
       }
+      this.combineIndicatorsPercentage()
+
+    },
+    combineIndicatorsPercentage() {
+      console.log('combineIndicatorsPercentage')
+
+      for (let i = 0; i < this.unitedStatNames.length; i++) {
+        const arrValues = []
+        const statName = this.unitedStatNames[i]
+        const statPercentName = this.unitedPercentageStatNames[i]
+
+        if (!Object.prototype.hasOwnProperty.call(this.overallStatByMatch, statName) || !Object.prototype.hasOwnProperty.call(this.overallStatByMatch, statPercentName)) continue
+        for (let k = 0; k < this.needSeasons.length; k++) {
+          const statValue = this.overallStatByMatch[statName][k]
+          console.log('statValue')
+          console.log(statValue)
+          const statPercentValue = this.overallStatByMatch[statPercentName][k]
+
+          arrValues.push(`${statValue} (${statPercentValue} %)`)
+          console.log(arrValues)
+        }
+        this.unitedIndicators[statName] = arrValues
+      }
       this.setOverallStatWithCombinedIndicators()
     },
-    combineIndicatorsPercentage() {},
     // filterKeyDublicate() {
     //   for (const statName in this.overallStatByMatch) {
     //     if (Object.hasOwnProperty.call(this.overallStatByMatch, statName)) {
@@ -300,7 +337,8 @@ export default {
       console.log('overallStatWithCombinedIndicators')
       this.overallStatWithCombinedIndicators = Object.assign(
         this.overallStatByMatch,
-        this.combinedIndicators
+        this.combinedIndicators,
+        this.unitedIndicators
       )
       console.log(this.overallStatWithCombinedIndicators)
       this.setOverallWidth()
@@ -347,6 +385,15 @@ export default {
   z-index: 1;
   // скрываем матчи (хотя один раз нужно будет показать)
   .cols-comparison:first-of-type {
+    display: none;
+  }
+  .cols-comparison:nth-of-type(3) {
+    display: none;
+  }
+  .cols-comparison:nth-of-type(5) {
+    display: none;
+  }
+  .cols-comparison:nth-of-type(9) {
     display: none;
   }
   .cols-comparison:nth-child(2) .stat-value .range-width {

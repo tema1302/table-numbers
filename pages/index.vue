@@ -12,9 +12,14 @@ export default {
   data() {
     return {
       players: {
-        Casemiro: 122951,
-        'Toni Kroos': 26502,
-        'Luka Modrić': 15466,
+        // Casemiro: 122951,
+        // 'Toni Kroos': 26502,
+        // 'Luka Modrić': 15466,
+
+        'Alexander Isak': 823941,
+        'Tammy Abraham': 610766,
+        'Kai Havertz': 836705,
+
         // Neymar: 124712,
         // 'Kylian Mbappé': 826643,
         // 'Jérémie Boga': 367056,
@@ -33,7 +38,7 @@ export default {
 
 .container-fluid {
   background-image: url('./static/123.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: 100%;
   background-position: 47% 100%;
   font-family: 'Tenor Sans', sans-serif;
