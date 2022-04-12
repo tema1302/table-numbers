@@ -16,9 +16,8 @@ export default {
         // 'Toni Kroos': 26502,
         // 'Luka Modrić': 15466,
 
-        'Alexander Isak': 823941,
-        'Tammy Abraham': 610766,
-        'Kai Havertz': 836705,
+        Chelsea: 38,
+        'Real Madrid': 2829,
 
         // Neymar: 124712,
         // 'Kylian Mbappé': 826643,

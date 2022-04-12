@@ -53,34 +53,30 @@ export default {
       needSeasons: ['21/22', '20/21'],
       // needSeasons: ['21/22'],
       statNames: {
-        appearances: 'Матчей в сезоне',
+        matches: 'Матчей в сезоне',
 
-        // matchesStarted: 'Выходов в старте',
-        // touches: 'Касаний (действий с мячом) за игру',
         // 'accuratePasses': 'Успешных передач за игру',
 
         // totalPasses: 'Пасов за игру',
+        // accuratePassesPercentage: 'Точность передач',
+        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // accurateOppositionHalfPassesPercentage: 'Точность передач на чужой половине',
 
-
-        // accurateFinalThirdPasses: 'Успешных передач в финальной трети',
         // bigChancesCreated: 'Явных голевых моментов создано за игру',
         // assists: 'Ассистов за игру',
 
+        // dribbleAttempts: 'Попыток дриблинга за игру',
         // successfulDribbles: 'Успешного дриблинга за игру',
-        // successfulDribblesPercentage: '% успешного дриблинга',
 
+        shots: 'Ударов за игру',
+        goalsScored: 'Голов забито за игру',
 
+        shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
+        shotsOnTarget: 'Ударов в створ ворот за игру',
 
-        // totalShots: 'Ударов за игру',
-        // goals: 'Голов за игру',
-        // shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
-        // shotsOffTarget: 'Ударов мимо ворот за игру',
+        bigChancesMissed: 'Упущено голевых моментов за игру',
 
-        // bigChancesMissed: 'Упущено голевых моментов за игру',
-
-        // goalConversionPercentage: 'Конвертация ударов в голы в %',
-        // penaltyGoals: 'Голов из пенальти за игру',
-        // goalsAssistsSum: 'Гол + пас',
+        penaltyGoals: 'Голов из пенальти за игру',
 
         // accurateLongBalls: 'Успешных длинных передачи за игру',
         // accurateLongBallsPercentage: '% успешных длинных передач',
@@ -88,18 +84,18 @@ export default {
         // keyPasses: 'Ключевых передач за игру',
 
         // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
-        aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
-        aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
+        // aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
+        // aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
 
-        groundDuelsWon: 'Выигранных наземных дуэлей за игру',
-        groundDuelsWonPercentage: '% выигранных наземных дуэлей',
-        possessionLost: 'Потерей мяча за игру',
+        // groundDuelsWon: 'Выигранных наземных дуэлей за игру',
+        // groundDuelsWonPercentage: '% выигранных наземных дуэлей',
+        // possessionLost: 'Потерей мяча за игру',
 
         // на всякий случай
+        // goalsConceded: 'Голов пропущенно за игру',
 
-        interceptions: 'Перехватов за игру',
-        tackles: 'Отборов за игру',
-        tacklesWonPercentage: '',
+        // interceptions: 'Перехватов за игру',
+        // tackles: 'Отборов за игру',
         // fouls: 'Фолов за игру',
         // clearances: 'Выносов за игру',
         // blockedShots: 'Заблокировано ударов за игру',
@@ -111,44 +107,16 @@ export default {
       statsForBlocksWidth: {},
       overallStatByMatch: {},
       smallerIndicators: [
-        'matchesStarted',
-        'accurateFinalThirdPasses',
-        'accuratePasses',
-        'shotsFromOutsideTheBox',
-        'shotsOffTarget',
-        'goals',
       ],
       biggerIndicators: [
-        'appearances',
-        'totalPasses',
-        'totalPasses',
-        'totalShots',
-        'totalShots',
-        'totalShots',
       ],
       combinedIndicatorsName: {
-        matchesStarted: 'Матчей в старте',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        accuratePasses: 'Успешных передач за игру',
-        shotsFromOutsideTheBox: 'Дальних ударов за игру',
-        shotsOffTarget: 'Ударов мимо ворот за игру',
-        goalConversionPercentage: 'Конвертация ударов в голы в %',
       },
       combinedIndicators: {},
 
       unitedStatNames: [
-        'aerialDuelsWon',
-        'groundDuelsWon',
-        'successfulDribbles',
-        'tackles',
-        'accurateLongBalls',
       ],
       unitedPercentageStatNames: [
-        'aerialDuelsWonPercentage',
-        'groundDuelsWonPercentage',
-        'successfulDribblesPercentage',
-        'tacklesWonPercentage',
-        'accurateLongBallsPercentage',
       ],
       unitedIndicators: {},
 
@@ -165,7 +133,7 @@ export default {
       for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
         console.log(seasonId)
         const response = await this.$axios.get(
-          `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
+          `/api/v1/team/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
         )
         const statsResponce = response.data.statistics
         // данные для длины блоков
@@ -190,7 +158,7 @@ export default {
       localStorage.setItem('playerId', this.playerId)
       try {
         const response = await this.$axios.get(
-          `https://api.sofascore.com/api/v1/player/${this.playerId}/statistics/seasons`
+          `/api/v1/team/${this.playerId}/team-statistics/seasons`
         )
         let succesSeasons = 0
         while (succesSeasons < this.needSeasons.length) {
@@ -202,12 +170,13 @@ export default {
             const tournament = response.data.uniqueTournamentSeasons[i]
             const tournamentName = tournament.uniqueTournament.name
             if (
-              tournamentName === 'Premier League' ||
-              tournamentName === 'LaLiga' ||
-              tournamentName === 'Ligue 1' ||
-              tournamentName === 'Serie A' ||
-              tournamentName === 'Bundesliga' ||
-              tournamentName === 'Eredivisie'
+              // tournamentName === 'Premier League' ||
+              // tournamentName === 'LaLiga' ||
+              // tournamentName === 'Ligue 1' ||
+              // tournamentName === 'Serie A' ||
+              // tournamentName === 'Bundesliga' ||
+              // tournamentName === 'Eredivisie' ||
+              tournamentName === 'UEFA Champions League'
             ) {
               // проверяем, есть ли в данном турнире нужный год (напр. Лукаку выступал в АПЛ в сезоне 21/22 - хотим выводить именно этот сезон в первую очередь)
               const hasNeedSeason = tournament.seasons.some(
@@ -239,7 +208,7 @@ export default {
           const arrStatValue = this.tableNumbers[statName]
           if (
             statName === 'matchesStarted' ||
-            statName === 'appearances' ||
+            statName === 'matches' ||
             statName === 'cleanSheet' ||
             // statName === 'assists' ||
             // statName === 'bigChancesCreated' ||
@@ -252,10 +221,14 @@ export default {
           } else {
             const arrStatValueByMatch = arrStatValue.map((statValue, idx) => {
               if (statName.includes('Percentage')) {
+                console.log(statName)
+                console.log(statValue)
                 return +statValue.toFixed(1)
               } else {
+                console.log(statName)
+                console.log(statValue)
                 return +(
-                  statValue / this.tableNumbers.appearances[idx]
+                  statValue / this.tableNumbers.matches[idx]
                 ).toFixed(2)
               }
             })
@@ -376,7 +349,7 @@ export default {
   opacity: 0;
 }
 .stats-table {
-  width: 190px;
+  width: 280px;
   padding: 15px;
   border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
   margin: 70px 0 0;
@@ -384,18 +357,9 @@ export default {
   position: relative;
   z-index: 1;
   // скрываем матчи (хотя один раз нужно будет показать)
-  .cols-comparison:first-of-type {
-    display: none;
-  }
-  .cols-comparison:nth-of-type(3) {
-    display: none;
-  }
-  .cols-comparison:nth-of-type(5) {
-    display: none;
-  }
-  .cols-comparison:nth-of-type(9) {
-    display: none;
-  }
+  // .cols-comparison:first-of-type {
+  //   display: none;
+  // }
   .cols-comparison:nth-child(2) .stat-value .range-width {
     background-color: #4e50d8c2;
   }
@@ -420,9 +384,9 @@ export default {
   .cols-comparison:nth-child(9) .stat-value .range-width {
     background-color: #4e50d8c2;
   }
-  h4 {
-    min-height: 60px;
-  }
+  // h4 {
+  //   min-height: 60px;
+  // }
   .stat-legend {
     min-height: 50px;
     font-size: 13px;
