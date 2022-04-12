@@ -57,7 +57,7 @@ export default {
         matchesStarted: 'Выходов в старте',
         touches: 'Касаний (действий с мячом) за игру',
         totalPasses: 'Пасов за игру',
-        'accuratePasses': 'Успешных передач за игру',
+        accuratePasses: 'Успешных передач за игру',
         accurateFinalThirdPasses: 'Успешных передач в финальной трети',
         totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
 
@@ -244,7 +244,6 @@ export default {
     },
     combineIndicatorsTotal() {
       if (Object.keys(this.overallStatByMatch).length !== 0) {
-
         const statMatch = this.overallStatByMatch
         const arrEngNames = Object.keys(this.combinedIndicatorsName)
         for (const [idx, biggerVName] of this.biggerIndicators.entries()) {
@@ -288,12 +287,12 @@ export default {
       this.setOverallWidth()
     },
     setOverallWidth() {
-      console.log('overallWidth');
+      console.log('overallWidth')
       const overallArr = Object.keys(this.overallStatWithCombinedIndicators)
       for (const statName of overallArr) {
         let statValues = this.overallStatWithCombinedIndicators[statName]
-        if (typeof(statValues[0]) === 'string') {
-          statValues = statValues.map(val => {
+        if (typeof statValues[0] === 'string') {
+          statValues = statValues.map((val) => {
             console.log(val)
             if (val.slice(-7, -3) === '00.0') return +val.slice(-8, -3)
             console.log(+val.slice(-7, -3))

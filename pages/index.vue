@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       players: {
-        Casemiro: 122951,
+        'Cristiano Ronaldo': 750,
         'Toni Kroos': 26502,
         'Luka Modrić': 15466,
         // Neymar: 124712,
