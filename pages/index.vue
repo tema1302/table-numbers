@@ -1,7 +1,7 @@
 <template lang="pug">
 .container-fluid.px-10.mx-auto
   .min-h-screen.flex.items-start.justify-center
-    PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :key="name")
+    PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :teamId="team" :key="name")
 </template>
 
 <script>
@@ -13,8 +13,7 @@ export default {
     return {
       players: {
         'Cristiano Ronaldo': 750,
-        'Toni Kroos': 26502,
-        'Luka Modrić': 15466,
+        // 'Luka Modrić': 15466,
         // Neymar: 124712,
         // 'Kylian Mbappé': 826643,
         // 'Jérémie Boga': 367056,
@@ -23,6 +22,7 @@ export default {
         // 'Jack Grealish': 189061,
         // 'Raheem Sterling': 138534,
       },
+      team: 35, // MU
     }
   },
 }

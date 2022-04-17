@@ -1,7 +1,7 @@
 <template lang="pug">
   .component
-    button.relative.button.inline-block.px-5.bg-blue-600.text-white.rounded-xl(@click="fetchSeasonsTournament") Get data
-    .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="playerId && seasonTournamentIds")
+    button.relative.button.inline-block.px-5.bg-blue-600.text-white.rounded-xl(@click="fetchMatchesIds") Get data
+    .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="playerId")
       h4.text-white.text-xl.col-span-1 {{ playerName }}
       //- .season
       //-   .season.mx-1.py-3.stat-legend Сезоны
@@ -41,67 +41,83 @@ export default {
       type: String,
       default: '',
     },
+    teamId: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       // playerId: localStorage.getItem('playerId') ?? '',
-      seasonTournamentIds: [],
-      seasonTournamentYears: [],
-      tournamentsIds: [],
+      // seasonTournamentIds: [],
+      // seasonTournamentYears: [],
+      // tournamentsIds: [],
+      idsArray: [],
+      playerStatsArr: [ [], [] ],
+      playerStatsArr1: [],
+      playerStatsArr2: [],
+
+      unitedValues: [],
+      unitedValues1: {},
+      unitedValues2: {},
+      crucialMoment: [9576372],
       isLoaded: false,
-      needSeasons: ['21/22', '20/21', '19/20', '18/19'],
-      // needSeasons: ['21/22'],
       statNames: {
-        appearances: 'Матчей в сезоне',
+        minutesPlayed: 'Минут сыграно',
 
-        matchesStarted: 'Выходов в старте',
-        touches: 'Касаний (действий с мячом) за игру',
-        totalPasses: 'Пасов за игру',
-        accuratePasses: 'Успешных передач за игру',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // touches: 'Касаний (действий с мячом) на 90\'',
+        // totalPass: 'Пасов на 90\'',
+        // accuratePass: 'Успешных передач на 90\'',
 
-        // bigChancesCreated: 'Явных голевых моментов создано за игру',
-        // assists: 'Ассистов за игру',
+        // bigChanceCreated: 'Явных голевых моментов создано на 90\'',
+        assists: 'Ассистов на 90\'',
 
-        // successfulDribbles: 'Успешного дриблинга за игру',
-        // successfulDribblesPercentage: '% успешного дриблинга',
+        // wonContest: 'Успешного дриблинга на 90\'',
+        // totalContest: 'Попыток дриблинга на 90\'',
 
-        // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
+        // wasFouled: 'Заработано фолов',
 
-        // totalShots: 'Ударов за игру',
+        // duelWon: 'Выигранных наземных дуэлей на 90\'',
+        // duelLost: 'Проигранных наземных дуэлей',
 
-        // shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
-        // shotsOnTarget: 'Ударов по воротам за игру',
-        // shotsOffTarget: 'Ударов мимо ворот за игру',
 
-        // bigChancesMissed: 'Упущено голевых моментов за игру',
-        // goals: 'Всего голов за игру',
-        // penaltyGoals: 'Голов из пенальти за игру',
-        // goalsAssistsSum: 'Гол + пас',
-        // goalConversionPercentage: 'Конвертация ударов в голы в %',
+        // dispossessed: 'Лишен мяча',
+        // possessionLostCtrl: 'Потерей мяча на 90\'',
 
-        // totalLongBalls: 'Длинных передачи за игру',
-        // accurateLongBallsPercentage: '% успешных длинных передач',
+        // totalShots: 'Ударов на 90\'',
+        // onTargetScoringAttempt: 'Ударов по воротам на 90\'',
+        // shotOffTarget: 'Ударов мимо ворот на 90\'',
+        // blockedScoringAttempt: 'Заблокированных на 90\'',
+
+        bigChanceMissed: 'Упущено голевых моментов на 90\'',
+        goals: 'Всего голов на 90\'',
+
+
+        // totalCross: 'Сделано навесов на 90\'',
+        // accurateCross: 'Успешных навесов на 90\'',
+
+
+        // totalLongBalls: 'Длинных передачи на 90\'',
+        // accurateLongBalls: 'Успешных длинных передач',
         // accurateChippedPasses: 'Успешных пасов с подсечкой',
-        // keyPasses: 'Ключевых передач за игру',
+        // keyPass: 'Ключевых передач на 90\'',
 
-        // aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
-        // aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
+        // aerialWon: 'Выигранных воздушных единоборств на 90\'',
+        // aerialLost: 'Проигранных воздушных единоборств',
 
-        // groundDuelsWon: 'Выигранных наземных дуэлей за игру',
-        // groundDuelsWonPercentage: '% выигранных наземных дуэлей',
-        // possessionLost: 'Потерей мяча за игру',
 
-        // на всякий случай
+        // challengeLost: 'Обыгран на дриблинге',
+        // fouls: 'Совершенных фолов',
 
-        // interceptions: 'Перехватов за игру',
-        // tackles: 'Отборов за игру',
-        // clearances: 'Выносов за игру',
-        // blockedShots: 'Заблокировано ударов за игру',
-        // offsides: 'Офсайдов',
+        interceptionWon: 'Перехватов на 90\'',
+        totalTackle: 'Отборов на 90\'',
+        totalClearance: 'Выносов на 90\'',
+        outfielderBlock: 'Заблокировано ударов на 90\'',
+        totalOffside: 'Офсайдов',
 
+        // goalConversionPercentage: 'Конвертация ударов в голы в %',
         // cleanSheet: 'Сухарей',
+        rating: 'Средний рейтинг sofascore',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
@@ -133,78 +149,186 @@ export default {
 
   // computed: {
   // },
-  watch: {
-    async seasonTournamentIds() {
-      for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
-        console.log(seasonId)
-        const response = await this.$axios.get(
-          `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
-        )
-        const statsResponce = response.data.statistics
-        // данные для длины блоков
-        // {app: [], touches: [] ...}
-        for (const statName in this.statNames) {
-          if (!Array.isArray(this.tableNumbers[statName]))
-            this.tableNumbers[statName] = []
-          this.tableNumbers[statName].push(statsResponce[statName])
+  // watch: {
+  //   async seasonTournamentIds() {
+  //     for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
+  //       console.log(seasonId)
+  //       const response = await this.$axios.get(
+  //         `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
+  //       )
+  //       const statsResponce = response.data.statistics
+  //       // данные для длины блоков
+  //       // {app: [], touches: [] ...}
+  //       for (const statName in this.statNames) {
+  //         if (!Array.isArray(this.tableNumbers[statName]))
+  //           this.tableNumbers[statName] = []
+  //         this.tableNumbers[statName].push(statsResponce[statName])
+  //       }
+  //     }
+  //     console.log('this.isLoaded')
+
+  //     this.isLoaded = true
+  //     this.getStatByMatch()
+  //     console.log(this.isLoaded)
+  //   },
+  // },
+  methods: {
+    async fetchMatchesIds() {
+      for (let i = 0; i < 2; i++) {
+        try {
+          const response = await this.$axios.get(
+            `/api/v1/team/${this.teamId}/events/last/${i}`
+          )
+          const eventArray = response.data.events
+          const ids = eventArray.map((match) => match.id)
+          // найти способ соединять массивы в цикле
+          this.idsArray.push(ids)
+        } catch (e) {
+          console.error(e)
         }
       }
-      console.log('this.isLoaded')
+      this.idsArray = [...this.idsArray[1], ...this.idsArray[0]]
 
-      this.isLoaded = true
-      this.getStatByMatch()
-      console.log(this.isLoaded)
+      await this.fetchStatictics()
     },
-  },
-  methods: {
-    async fetchSeasonsTournament() {
-      // по id игрока получаем id сезона в конкретной лиге. Зачастую нас будет интересовать нац лига, т.е. первая в списке
-      // (возможно, придется добавлять условие для того, какую лигу я ожидаю увидеть, и вставлять название лиги в проверку, передавая через параметры)
-      localStorage.setItem('playerId', this.playerId)
-      try {
-        const response = await this.$axios.get(
-          `https://api.sofascore.com/api/v1/player/${this.playerId}/statistics/seasons`
-        )
-        let succesSeasons = 0
-        while (succesSeasons < this.needSeasons.length) {
-          for (
-            let i = 0;
-            i < response.data.uniqueTournamentSeasons.length;
-            i++
-          ) {
-            const tournament = response.data.uniqueTournamentSeasons[i]
-            const tournamentName = tournament.uniqueTournament.name
-            if (
-              tournamentName === 'Premier League' ||
-              tournamentName === 'LaLiga' ||
-              tournamentName === 'Ligue 1' ||
-              tournamentName === 'Serie A' ||
-              tournamentName === 'Bundesliga' ||
-              tournamentName === 'Eredivisie'
-            ) {
-              // проверяем, есть ли в данном турнире нужный год (напр. Лукаку выступал в АПЛ в сезоне 21/22 - хотим выводить именно этот сезон в первую очередь)
-              const hasNeedSeason = tournament.seasons.some(
-                (season) => season.year === this.needSeasons[succesSeasons]
-              )
-              if (!hasNeedSeason) continue
-              const needSeason = tournament.seasons.find(
-                (season) => season.year === this.needSeasons[succesSeasons]
-              )
-              this.tournamentsIds.push(tournament.uniqueTournament.id)
-              this.seasonTournamentIds.push(needSeason.id)
-              this.seasonTournamentYears.push(needSeason.year)
-              succesSeasons++
-              if (succesSeasons === this.needSeasons.length) {
-                i = response.data.uniqueTournamentSeasons.length
-                break
-              }
-            }
+    async fetchStatictics() {
+      // разделяем массив на ДО и ПОСЛЕ
+      const crucialMomentIndex = this.idsArray.findIndex(
+        (idx) => idx === this.crucialMoment[0]
+      )
+      console.log(crucialMomentIndex)
+      const dividedIdsArray = []
+
+      // const firstIdsArr = this.idsArray.slice(0, crucialMomentIndex)
+      // const secondIdsArr = this.idsArray.slice(crucialMomentIndex)
+
+      for (let i = 0; i < this.crucialMoment.length + 1; i++) {
+        console.log(dividedIdsArray)
+        console.log(i)
+        i === 0
+        ? dividedIdsArray[i] = this.idsArray.slice(0, crucialMomentIndex)
+        : dividedIdsArray[i] = this.idsArray.slice(crucialMomentIndex)
+      }
+      console.log('dividedIdsArray')
+      console.log(dividedIdsArray)
+      // console.log('firstIdsArr')
+      // console.log(firstIdsArr)
+      // console.log('secondIdsArr')
+      // console.log(secondIdsArr)
+
+      // проходимся по каждому и собираем статистику
+      for (let i = 0; i < dividedIdsArray.length; i++) {
+        const idsArr = dividedIdsArray[i];
+        for (const matchId of idsArr) {
+          try {
+            const response = await this.$axios.get(
+              `https://api.sofascore.com/api/v1/event/${matchId}/player/${this.playerId}/statistics`
+            )
+            const statInMatch = response.data.statistics
+            // console.log(statInMatch)
+            this.playerStatsArr[i].push(statInMatch)
+            // console.log('this.playerStatsArr' + i)
+            // console.log(this.playerStatsArr)
+          } catch (e) {
+            console.error(e)
           }
         }
-      } catch (e) {
-        console.error(e)
+      }
+      console.log(this.playerStatsArr)
+
+      // for (const matchId of secondIdsArr) {
+      //   try {
+      //     const response = await this.$axios.get(
+      //       `https://api.sofascore.com/api/v1/event/${matchId}/player/${this.playerId}/statistics`
+      //     )
+      //     const statInMatch = response.data.statistics
+      //     this.playerStatsArr2.push(statInMatch)
+      //   } catch (e) {
+      //     console.error(e)
+      //   }
+      // }
+      this.uniteValues()
+    },
+
+    uniteValues() {
+      for (let i = 0; i < this.playerStatsArr.length; i++) {
+        this.unitedValues[i] = {}
+        for (const statName in this.statNames) {
+          console.log(statName)
+          if (Object.hasOwnProperty.call(this.statNames, statName)) {
+            const summValue = this.playerStatsArr[i].reduce((summ, matchStat) => {
+
+              if (!matchStat[statName]) {
+                matchStat[statName] = 0
+              }
+
+              return summ + matchStat[statName]
+            }, 0)
+            console.log('this.unitedValues[i].minutesPlayed')
+            // console.log(summValue)
+            console.log(this.unitedValues[i])
+
+            if (statName === 'rating') this.unitedValues[i][statName] = +(summValue / this.playerStatsArr[i].length).toFixed(1)
+            else if (statName === 'minutesPlayed') this.unitedValues[i][statName] = summValue
+            else this.unitedValues[i][statName] = +(summValue / this.unitedValues[i].minutesPlayed * 90).toFixed(2)
+            console.log(this.unitedValues[i][statName])
+          }
+        }
+
+        this.unitedValues[i].matches = this.playerStatsArr[i].length
+        this.unitedValues[i].minutesPlayed = this.unitedValues[i].minutesPlayed / this.unitedValues[i].matches
       }
     },
+
+
+    // async fetchSeasonsTournament() {
+    //   // по id игрока получаем id сезона в конкретной лиге. Зачастую нас будет интересовать нац лига, т.е. первая в списке
+    //   // (возможно, придется добавлять условие для того, какую лигу я ожидаю увидеть, и вставлять название лиги в проверку, передавая через параметры)
+    //   localStorage.setItem('playerId', this.playerId)
+    //   try {
+    //     const response = await this.$axios.get(
+    //       `https://api.sofascore.com/api/v1/player/${this.playerId}/statistics/seasons`
+    //     )
+    //     let succesSeasons = 0
+    //     while (succesSeasons < this.needSeasons.length) {
+    //       for (
+    //         let i = 0;
+    //         i < response.data.uniqueTournamentSeasons.length;
+    //         i++
+    //       ) {
+    //         const tournament = response.data.uniqueTournamentSeasons[i]
+    //         const tournamentName = tournament.uniqueTournament.name
+    //         if (
+    //           tournamentName === 'Premier League' ||
+    //           tournamentName === 'LaLiga' ||
+    //           tournamentName === 'Ligue 1' ||
+    //           tournamentName === 'Serie A' ||
+    //           tournamentName === 'Bundesliga' ||
+    //           tournamentName === 'Eredivisie'
+    //         ) {
+    //           // проверяем, есть ли в данном турнире нужный год (напр. Лукаку выступал в АПЛ в сезоне 21/22 - хотим выводить именно этот сезон в первую очередь)
+    //           const hasNeedSeason = tournament.seasons.some(
+    //             (season) => season.year === this.needSeasons[succesSeasons]
+    //           )
+    //           if (!hasNeedSeason) continue
+    //           const needSeason = tournament.seasons.find(
+    //             (season) => season.year === this.needSeasons[succesSeasons]
+    //           )
+    //           this.tournamentsIds.push(tournament.uniqueTournament.id)
+    //           this.seasonTournamentIds.push(needSeason.id)
+    //           this.seasonTournamentYears.push(needSeason.year)
+    //           succesSeasons++
+    //           if (succesSeasons === this.needSeasons.length) {
+    //             i = response.data.uniqueTournamentSeasons.length
+    //             break
+    //           }
+    //         }
+    //       }
+    //     }
+    //   } catch (e) {
+    //     console.error(e)
+    //   }
+    // },
 
     getStatByMatch() {
       for (const statName in this.tableNumbers) {
