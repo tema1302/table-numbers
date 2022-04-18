@@ -106,18 +106,13 @@ export default {
       tableNumbers: {},
       statsForBlocksWidth: {},
       overallStatByMatch: {},
-      smallerIndicators: [
-      ],
-      biggerIndicators: [
-      ],
-      combinedIndicatorsName: {
-      },
+      smallerIndicators: [],
+      biggerIndicators: [],
+      combinedIndicatorsName: {},
       combinedIndicators: {},
 
-      unitedStatNames: [
-      ],
-      unitedPercentageStatNames: [
-      ],
+      unitedStatNames: [],
+      unitedPercentageStatNames: [],
       unitedIndicators: {},
 
       overallStatWithCombinedIndicators: {},
@@ -227,9 +222,7 @@ export default {
               } else {
                 console.log(statName)
                 console.log(statValue)
-                return +(
-                  statValue / this.tableNumbers.matches[idx]
-                ).toFixed(2)
+                return +(statValue / this.tableNumbers.matches[idx]).toFixed(2)
               }
             })
             // console.log(statName)
@@ -241,7 +234,6 @@ export default {
       // console.log('getStatByMatch')
       // console.log(this.overallStatByMatch)
       this.combineIndicatorsTotal()
-
     },
     combineIndicatorsTotal() {
       if (Object.keys(this.overallStatByMatch).length !== 0) {
@@ -255,10 +247,19 @@ export default {
           // console.log(this.overallStatByMatch)
           // console.log(smallerVName in this.overallStatByMatch)
 
-          if (!Object.prototype.hasOwnProperty.call(this.overallStatByMatch, smallerVName) || !Object.prototype.hasOwnProperty.call(this.overallStatByMatch, biggerVName)) continue
+          if (
+            !Object.prototype.hasOwnProperty.call(
+              this.overallStatByMatch,
+              smallerVName
+            ) ||
+            !Object.prototype.hasOwnProperty.call(
+              this.overallStatByMatch,
+              biggerVName
+            )
+          )
+            continue
           const arrVal = []
           for (let i = 0; i < this.needSeasons.length; i++) {
-
             const biggerValue = this.overallStatByMatch[biggerVName][i]
             const smallerValue = this.overallStatByMatch[smallerVName][i]
             const percentage = ((smallerValue / biggerValue) * 100).toFixed(1)
@@ -271,7 +272,6 @@ export default {
         console.log(this.combinedIndicators)
       }
       this.combineIndicatorsPercentage()
-
     },
     combineIndicatorsPercentage() {
       console.log('combineIndicatorsPercentage')
@@ -281,7 +281,17 @@ export default {
         const statName = this.unitedStatNames[i]
         const statPercentName = this.unitedPercentageStatNames[i]
 
-        if (!Object.prototype.hasOwnProperty.call(this.overallStatByMatch, statName) || !Object.prototype.hasOwnProperty.call(this.overallStatByMatch, statPercentName)) continue
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            this.overallStatByMatch,
+            statName
+          ) ||
+          !Object.prototype.hasOwnProperty.call(
+            this.overallStatByMatch,
+            statPercentName
+          )
+        )
+          continue
         for (let k = 0; k < this.needSeasons.length; k++) {
           const statValue = this.overallStatByMatch[statName][k]
           console.log('statValue')
@@ -317,12 +327,12 @@ export default {
       this.setOverallWidth()
     },
     setOverallWidth() {
-      console.log('overallWidth');
+      console.log('overallWidth')
       const overallArr = Object.keys(this.overallStatWithCombinedIndicators)
       for (const statName of overallArr) {
         let statValues = this.overallStatWithCombinedIndicators[statName]
-        if (typeof(statValues[0]) === 'string') {
-          statValues = statValues.map(val => {
+        if (typeof statValues[0] === 'string') {
+          statValues = statValues.map((val) => {
             console.log(val)
             if (val.slice(-7, -3) === '00.0') return +val.slice(-8, -3)
             console.log(+val.slice(-7, -3))
