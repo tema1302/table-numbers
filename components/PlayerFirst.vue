@@ -49,7 +49,9 @@ export default {
       seasonTournamentYears: [],
       tournamentsIds: [],
       isLoaded: false,
-      needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      // needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      // needSeasons: ['21/22', '20/21', '19/20'],
+      needSeasons: ['21/22', '20/21'],
       // needSeasons: ['21/22'],
       statNames: {
         appearances: 'Матчей в сезоне',
@@ -163,7 +165,7 @@ export default {
       localStorage.setItem('playerId', this.playerId)
       try {
         const response = await this.$axios.get(
-          `https://api.sofascore.com/api/v1/player/${this.playerId}/statistics/seasons`
+          `/api/v1/player/${this.playerId}/statistics/seasons`
         )
         let succesSeasons = 0
         while (succesSeasons < this.needSeasons.length) {
