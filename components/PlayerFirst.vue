@@ -54,56 +54,63 @@ export default {
       needSeasons: ['21/22', '20/21'],
       // needSeasons: ['21/22'],
       statNames: {
+        minutesPlayed: 'Минут в сезоне',
+
         appearances: 'Матчей в сезоне',
-
         matchesStarted: 'Выходов в старте',
-        touches: 'Касаний (действий с мячом) за игру',
-        totalPasses: 'Пасов за игру',
-        accuratePasses: 'Успешных передач за игру',
+        touches: "Касаний (действий с мячом) на 90'",
+        totalPasses: "Пасов на 90'",
+        accuratePasses: "Успешных передач на 90'",
         accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        totalOppositionHalfPasses: "Пасов на чужой половине поля на 90'",
 
-        // bigChancesCreated: 'Явных голевых моментов создано за игру',
-        // assists: 'Ассистов за игру',
+        bigChancesCreated: "Явных голевых моментов создано на 90'",
+        assists: "Ассистов на 90'",
 
-        // successfulDribbles: 'Успешного дриблинга за игру',
-        // successfulDribblesPercentage: '% успешного дриблинга',
+        successfulDribbles: "Успешного дриблинга на 90'",
+        successfulDribblesPercentage: '% успешного дриблинга',
 
-        // possessionWonAttThird: 'Возвратов владения (финальная треть) за игру',
+        possessionWonAttThird: "Возвратов владения (финальная треть) на 90'",
 
-        // totalShots: 'Ударов за игру',
+        totalShots: "Ударов на 90'",
 
-        // shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
-        // shotsOnTarget: 'Ударов по воротам за игру',
-        // shotsOffTarget: 'Ударов мимо ворот за игру',
+        shotsFromOutsideTheBox: "Ударов за пределами штрафной на 90'",
+        shotsOnTarget: "Ударов по воротам на 90'",
+        shotsOffTarget: "Ударов мимо ворот на 90'",
 
-        // bigChancesMissed: 'Упущено голевых моментов за игру',
-        // goals: 'Всего голов за игру',
-        // penaltyGoals: 'Голов из пенальти за игру',
-        // goalsAssistsSum: 'Гол + пас',
-        // goalConversionPercentage: 'Конвертация ударов в голы в %',
+        bigChancesMissed: "Упущено голевых моментов на 90'",
+        goals: "Всего голов на 90'",
+        penaltyGoals: "Голов из пенальти на 90'",
+        goalsAssistsSum: 'Гол + пас',
+        goalConversionPercentage: 'Конвертация ударов в голы в %',
 
-        // totalLongBalls: 'Длинных передачи за игру',
-        // accurateLongBallsPercentage: '% успешных длинных передач',
-        // accurateChippedPasses: 'Успешных пасов с подсечкой',
-        // keyPasses: 'Ключевых передач за игру',
+        totalLongBalls: "Длинных передачи на 90'",
+        accurateLongBallsPercentage: '% успешных длинных передач',
+        accurateChippedPasses: 'Успешных пасов с подсечкой',
+        keyPasses: "Ключевых передач на 90'",
 
-        // aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
-        // aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
+        dispossessed: "Лишен мяча без силового контакта на 90'",
+        possessionLost: "Потерей мяча на 90'",
 
-        // groundDuelsWon: 'Выигранных наземных дуэлей за игру',
-        // groundDuelsWonPercentage: '% выигранных наземных дуэлей',
-        // possessionLost: 'Потерей мяча за игру',
+        aerialDuelsWon: "Выигранных воздушных единоборств на 90'",
+        aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
+
+        groundDuelsWon: "Выигранных наземных дуэлей на 90'",
+        groundDuelsWonPercentage: '% выигранных наземных дуэлей',
 
         // на всякий случай
 
-        // interceptions: 'Перехватов за игру',
-        // tackles: 'Отборов за игру',
-        // clearances: 'Выносов за игру',
-        // blockedShots: 'Заблокировано ударов за игру',
-        // offsides: 'Офсайдов',
+        interceptions: "Перехватов на 90'",
+        tackles: "Отборов на 90'",
+        clearances: "Выносов на 90'",
+        blockedShots: "Заблокировано ударов на 90'",
+        fouls: "Нарушений правил на 90'",
+        yellowCards: "Желтых карточек на 90'",
+        errorLeadToShot: "Ошибок, приведших к удару на 90'",
+        errorLeadToGoal: "Ошибок, приведших к голу на 90'",
 
-        // cleanSheet: 'Сухарей',
+        offsides: 'Офсайдов',
+        cleanSheet: 'Сухарей',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
@@ -122,9 +129,9 @@ export default {
       ],
       combinedIndicatorsName: {
         matchesStarted: 'Матчей в старте',
-        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // totalOppositionHalfPasses: 'Пасов на чужой половине поля на 90\'',
         accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        accuratePasses: 'Успешных передач за игру',
+        accuratePasses: "Успешных передач на 90'",
       },
       combinedIndicators: {},
       overallStatWithCombinedIndicators: {},
@@ -216,6 +223,8 @@ export default {
             statName === 'matchesStarted' ||
             statName === 'appearances' ||
             statName === 'cleanSheet' ||
+            statName === 'errorLeadToGoal' ||
+            statName === 'errorLeadToShot' ||
             // statName === 'assists' ||
             // statName === 'bigChancesCreated' ||
             // statName === 'penaltyGoals' ||
@@ -230,8 +239,9 @@ export default {
                 return +statValue.toFixed(1)
               } else {
                 return +(
-                  statValue / this.tableNumbers.appearances[idx]
-                ).toFixed(1)
+                  (statValue / this.tableNumbers.minutesPlayed[idx]) *
+                  90
+                ).toFixed(2)
               }
             })
             // console.log(statName)
@@ -322,7 +332,7 @@ export default {
 }
 .stats-table {
   width: 190px;
-  padding: 15px;
+  padding: 12px 8px;
   border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
   margin: 70px 0 0;
   color: white;
@@ -332,32 +342,34 @@ export default {
   .cols-comparison:first-of-type {
     display: none;
   }
-  .cols-comparison:nth-child(2) .stat-value .range-width {
-    background-color: #4e50d8c2;
+
+  $colors: #0a374899, #1b6cbd99, #941b8899, #0ccfbf99;
+  @each $color in $colors {
+    $i: index($colors, $color);
+    .cols-comparison:nth-child(4n + #{$i}) .stat-value .range-width {
+      background-color: $color;
+    }
   }
-  .cols-comparison:nth-child(3) .stat-value .range-width {
-    background-color: #5b2cac9f;
-  }
-  .cols-comparison:nth-child(4) .stat-value .range-width {
-    background-color: #4595e195;
-  }
-  .cols-comparison:nth-child(5) .stat-value .range-width {
-    background-color: #8184e6c6;
-  }
-  .cols-comparison:nth-child(6) .stat-value .range-width {
-    background-color: #4e50d8c2;
-  }
-  .cols-comparison:nth-child(7) .stat-value .range-width {
-    background-color: #4595e195;
-  }
-  .cols-comparison:nth-child(8) .stat-value .range-width {
-    background-color: #8184e6c6;
-  }
-  .cols-comparison:nth-child(9) .stat-value .range-width {
-    background-color: #4e50d8c2;
-  }
+
   h4 {
     min-height: 60px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    z-index: 10;
+    top: 4px;
+    background: rgba(
+      255,
+      255,
+      255,
+      0.2
+    ); // Make sure this color has an opacity of less than 1
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    -webkit-clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
+    clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
   }
   .stat-legend {
     min-height: 50px;
@@ -387,7 +399,7 @@ export default {
         border-radius: 8px;
         position: absolute;
         z-index: -1;
-        transform: translate(-5px, -93%);
+        transform: translate(-8px, -96%) skew(-21deg, -4deg);
       }
     }
   }
