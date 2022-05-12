@@ -13,14 +13,14 @@ export default {
     return {
       players: {
         // 'Mason Mount': 836694,
-        Jorginho: 132874,
-        'Mateo Kovačić': 136710,
-        "N'Golo Kanté": 234148,
-        'Ruben Loftus-Cheek': 284441,
-        // 'Mohamed Salah': 159665,
-        // 'Yannick Carrasco': 182001,
-        // 'Jack Grealish': 189061,
-        // 'Raheem Sterling': 138534,
+        // Jorginho: 132874,
+        // 'Mateo Kovačić': 136710,
+        // "N'Golo Kanté": 234148,
+        // 'Ruben Loftus-Cheek': 284441,
+        'Christopher Nkunku': 769333,
+        'Rafael Leão': 851284,
+        Raphinha: 831005,
+        'Jarrod Bowen': 552884,
       },
     }
   },

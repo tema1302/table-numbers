@@ -106,8 +106,8 @@ export default {
         blockedShots: "Заблокировано ударов на 90'",
         fouls: "Нарушений правил на 90'",
         yellowCards: "Желтых карточек на 90'",
-        errorLeadToShot: "Ошибок, приведших к удару на 90'",
-        errorLeadToGoal: "Ошибок, приведших к голу на 90'",
+        // errorLeadToShot: 'Ошибок, приведших к удару',
+        // errorLeadToGoal: 'Ошибок, приведших к голу',
 
         offsides: 'Офсайдов',
         cleanSheet: 'Сухарей',
