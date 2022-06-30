@@ -3,27 +3,10 @@
     button.relative.button.inline-block.px-5.bg-blue-600.text-white.rounded-xl(@click="fetchSeasonsTournament") Get data
     .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="playerId && seasonTournamentIds")
       h4.text-white.text-xl.col-span-1 {{ playerName }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-
-      //- .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
-      //-   .stat-legend.mx-1.relative
-      //-     .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
-      //-   .stat-value.mx-1.py-2(v-for="(val2, i) in overallStatByMatch[statName]" :key="val2")
-      //-     span.range {{ statName.includes('Percentage') ? `${val2} %` : val2 }}
       .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
         .stat-legend.mx-1.relative
-          .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
+          .stat-legend-text.absolute.font-semibold.tracking-wide {{ russStatName }} / {{ statName }}
+        .mx-1.text-xs {{ needSeasons[0] }}
         .stat-value.mx-1.py-2(v-for="(value, i) in overallStatWithCombinedIndicators[statName]" :key="value")
           span.range {{ statName.includes('Percentage') ? `${value} %` : value }}
             span.range-width(:style="{ width: overallWidth[statName][i] + '%' }")
@@ -49,9 +32,9 @@ export default {
       seasonTournamentYears: [],
       tournamentsIds: [],
       isLoaded: false,
-      // needSeasons: ['21/22', '20/21', '19/20', '18/19'],
+      needSeasons: ['21/22', '20/21', '19/20', '18/19'],
       // needSeasons: ['21/22', '20/21', '19/20'],
-      needSeasons: ['21/22', '20/21'],
+      // needSeasons: ['21/22', '20/21'],
       // needSeasons: ['21/22'],
       statNames: {
         minutesPlayed: 'Минут в сезоне',
@@ -343,10 +326,10 @@ export default {
     display: none;
   }
 
-  $colors: #0a374899, #1b6cbd99, #941b8899, #0ccfbf99;
+  $colors: #ff8256, #786fa6, #da628c, #3099a7, #303952, #c56cf0, #7158e2;
   @each $color in $colors {
     $i: index($colors, $color);
-    .cols-comparison:nth-child(4n + #{$i}) .stat-value .range-width {
+    .cols-comparison:nth-child(7n + #{$i}) .stat-value .range-width {
       background-color: $color;
     }
   }
@@ -368,8 +351,8 @@ export default {
     ); // Make sure this color has an opacity of less than 1
     backdrop-filter: blur(8px);
     border-radius: 8px;
-    -webkit-clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
-    clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
+    // -webkit-clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
+    // clip-path: polygon(53% 0, 100% 0, 100% 92%, 51% 100%, 0 92%, 0 0);
   }
   .stat-legend {
     min-height: 50px;
@@ -399,7 +382,7 @@ export default {
         border-radius: 8px;
         position: absolute;
         z-index: -1;
-        transform: translate(-8px, -96%) skew(-21deg, -4deg);
+        transform: translate(-8px, -96%) skew(-21deg, 0deg);
       }
     }
   }

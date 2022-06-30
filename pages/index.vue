@@ -17,10 +17,10 @@ export default {
         // 'Mateo Kovačić': 136710,
         // "N'Golo Kanté": 234148,
         // 'Ruben Loftus-Cheek': 284441,
-        'Christopher Nkunku': 769333,
-        'Rafael Leão': 851284,
-        Raphinha: 831005,
-        'Jarrod Bowen': 552884,
+        'Thiago Silva': 33541,
+        // 'Rafael Leão': 851284,
+        Jorginho: 132874,
+        // 'Jarrod Bowen': 552884,
       },
     }
   },
@@ -34,23 +34,10 @@ export default {
   // background-image: url('./static/123.jpg');
   // background-repeat: no-repeat;
   // background-size: 130%;
-  // background-attachment: fixed;
-  // background-position: 47% 100%;
-  background-image: linear-gradient(
-    to right top,
-    #d453d4,
-    #bb62dc,
-    #a16de0,
-    #8876df,
-    #707cdb,
-    #5487e0,
-    #3590e0,
-    #0098de,
-    #00a8e0,
-    #00b7db,
-    #00c3d0,
-    #1fcfc3
-  );
+  background-attachment: fixed;
+  background-position: 47% 100%;
+  background-size: auto;
+  background-image: url(https://kartinkin.net/uploads/posts/2021-07/1625811208_4-kartinkin-com-p-chernie-kubiki-oboi-krasivie-4.jpg);
   font-family: 'Tenor Sans', sans-serif;
 
   &::before {
