@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid.px-10.mx-auto
+.container-fluid.px-1.mx-auto
   .min-h-screen.flex.items-start.justify-center
     PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :teamId="team" :key="name")
 </template>
@@ -32,10 +32,10 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Tenor+Sans&family=Open+Sans+Condensed:wght@300&display=swap');
 
 .container-fluid {
-  background-image: url('./static/123.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: 47% 100%;
+  background-image: url('https://i.pinimg.com/736x/3a/8d/ba/3a8dbac10908497b7429883b6ca7b615.jpg');
+  // background-repeat: repeat-y;
+  background-size: contain;
+  // background-position: 47% 100%;
   font-family: 'Tenor Sans', sans-serif;
 
   &::before {
@@ -45,8 +45,8 @@ export default {
     bottom: 0;
     right: 0;
     z-index: 0;
-    background: rgba($color: #222, $alpha: 0.5);
-    // backdrop-filter: blur(1px);
+    //   background: rgba($color: #222, $alpha: 0.5);
+    backdrop-filter: blur(5px);
     position: fixed;
   }
 }

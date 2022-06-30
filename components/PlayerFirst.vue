@@ -1,32 +1,29 @@
 <template lang="pug">
   .component
-    button.relative.button.inline-block.px-5.bg-blue-600.text-white.rounded-xl(@click="fetchMatchesIds") Get data
+    button.relative.button.inline-block.px-5.bg-blue-600.rounded-xl.text-white(@click="fetchMatchesIds") Get data
     .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="playerId")
-      h4.text-white.text-xl.col-span-1 {{ playerName }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-      //- .season
-      //-   .season.mx-1.py-3.stat-legend Сезоны
-      //-   .season.mx-1.py-2(v-for="(season, idx) in seasonTournamentYears", :key="idx") {{ season }}
-
+      h4.text-gray-800.text-3xl.font-black.col-span-1.uppercase.text-center Игроки "МЮ" при тренерах в сезоне 21/22
+      .comparison-title.flex.justify-center.items-center
+        .comparison-item.comparison-item-1
+          span При Сульшере
+        .comparison-image
+          img(src="https://api.sofascore.app/api/v1/player/750/image")
+        .comparison-item.comparison-item-2
+          span При Рангнике
+      .flex.flex-wrap.items-center.justify-center.mb-3(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
+        .descr-title.w-full {{ russStatName[0] }} / {{ statName }}
+        .cols-comparison.text-right.flex-1.flex.flex-row-reverse
+          .comparison-item.comparison-item-0.text-white.text-xl(:style="{ width: overallWidth[0][statName] + '%' }") {{ unitedValues[0][statName] }}
+        .flex.flex-col.items-center
+          .cols-title.smile {{ russStatName[1] }}
+        .cols-comparison.text-left.flex-1
+          .comparison-item.comparison-item-1.text-white.text-xl(:style="{ width: overallWidth[1][statName] + '%' }") {{ unitedValues[1][statName] }}
       //- .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
       //-   .stat-legend.mx-1.relative
       //-     .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
-      //-   .stat-value.mx-1.py-2(v-for="(val2, i) in overallStatByMatch[statName]" :key="val2")
-      //-     span.range {{ statName.includes('Percentage') ? `${val2} %` : val2 }}
-      .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
-        .stat-legend.mx-1.relative
-          .stat-legend-text.absolute {{ russStatName }} / {{ statName }}
-        .stat-value.mx-1.py-2(v-for="(value, i) in overallStatWithCombinedIndicators[statName]" :key="value")
-          span.range {{ statName.includes('Percentage') ? `${value} %` : value }}
-            span.range-width(:style="{ width: overallWidth[statName][i] + '%' }")
+      //-   .stat-value.mx-1.py-2(v-for="(value, i) in overallStatWithCombinedIndicators[statName]" :key="value")
+      //-     span.range {{ statName.includes('Percentage') ? `${value} %` : value }}
+      //-       span.range-width(:style="{ width: overallWidth[statName][i] + '%' }")
 </template>
 
 <script>
@@ -53,7 +50,7 @@ export default {
       // seasonTournamentYears: [],
       // tournamentsIds: [],
       idsArray: [],
-      playerStatsArr: [ [], [] ],
+      playerStatsArr: [[], []],
       playerStatsArr1: [],
       playerStatsArr2: [],
 
@@ -63,115 +60,65 @@ export default {
       crucialMoment: [9576372],
       isLoaded: false,
       statNames: {
-        minutesPlayed: 'Минут сыграно',
+        minutesPlayed: ['Минут сыграно', '🕒'],
 
-        // touches: 'Касаний (действий с мячом) на 90\'',
-        // totalPass: 'Пасов на 90\'',
-        // accuratePass: 'Успешных передач на 90\'',
+        touches: ["Касаний (действий с мячом) на 90'", '👣'],
+        totalPass: ["Пасов на 90'", '🔗'],
+        accuratePass: ["Успешных передач на 90'", '🌟'],
 
-        // bigChanceCreated: 'Явных голевых моментов создано на 90\'',
-        assists: 'Ассистов на 90\'',
+        bigChanceCreated: ["Явных голевых моментов создано на 90'", '🤩'],
+        goalAssist: ["Ассистов на 90'", '👟'],
 
-        // wonContest: 'Успешного дриблинга на 90\'',
-        // totalContest: 'Попыток дриблинга на 90\'',
+        wonContest: ["Успешного дриблинга на 90'", '🐰'],
+        totalContest: ["Попыток дриблинга на 90'", '🏃‍♂️'],
 
-        // wasFouled: 'Заработано фолов',
+        wasFouled: ['Заработано фолов', '😖'],
 
-        // duelWon: 'Выигранных наземных дуэлей на 90\'',
-        // duelLost: 'Проигранных наземных дуэлей',
+        duelWon: ["Выигранных наземных дуэлей на 90'", '🌵'],
+        duelLost: ["Проигранных наземных дуэлей на 90'", '🌳'],
 
+        dispossessed: ['Лишен мяча', '🦦'],
+        possessionLostCtrl: ["Потерей мяча на 90'", '🦥'],
+        // ☄️
+        onTargetScoringAttempt: ["Ударов в створ на 90'", '🎯'],
+        shotOffTarget: ["Ударов мимо ворот на 90'", '😵'],
+        blockedScoringAttempt: ["Заблокированных на 90'", '🧱'],
 
-        // dispossessed: 'Лишен мяча',
-        // possessionLostCtrl: 'Потерей мяча на 90\'',
+        bigChanceMissed: ["Упущено голевых моментов на 90'", '🥅❌'],
+        goals: ["Всего голов на 90'", '⚽'],
 
-        // totalShots: 'Ударов на 90\'',
-        // onTargetScoringAttempt: 'Ударов по воротам на 90\'',
-        // shotOffTarget: 'Ударов мимо ворот на 90\'',
-        // blockedScoringAttempt: 'Заблокированных на 90\'',
+        totalCross: ["Сделано навесов на 90'", '🤼'],
+        accurateCross: ["Успешных навесов на 90'", '👌'],
 
-        bigChanceMissed: 'Упущено голевых моментов на 90\'',
-        goals: 'Всего голов на 90\'',
+        totalLongBalls: ["Длинных передачи на 90'", '↗'],
+        accurateLongBalls: ['Успешных длинных передач', '👍'],
+        // accurateChippedPasses: ['Успешных пасов с подсечкой', '🔗'],
+        keyPass: ["Ключевых передач на 90'", '🔑'],
 
+        aerialWon: ["Выигранных воздушных единоборств на 90'", '🦒'],
+        aerialLost: ['Проигранных воздушных единоборств на 90', '🌱'],
 
-        // totalCross: 'Сделано навесов на 90\'',
-        // accurateCross: 'Успешных навесов на 90\'',
+        challengeLost: ['Обыгран на дриблинге', '✈️'],
+        fouls: ['Совершенных фолов', '👊'],
 
+        interceptionWon: ["Перехватов на 90'", '🔥'],
+        totalTackle: ["Отборов на 90'", '🦏'],
+        totalClearance: ["Выносов на 90'", '👑'],
+        outfielderBlock: ["Заблокировано ударов на 90'", '😈'],
+        totalOffside: ['Офсайдов', '🧠'],
 
-        // totalLongBalls: 'Длинных передачи на 90\'',
-        // accurateLongBalls: 'Успешных длинных передач',
-        // accurateChippedPasses: 'Успешных пасов с подсечкой',
-        // keyPass: 'Ключевых передач на 90\'',
-
-        // aerialWon: 'Выигранных воздушных единоборств на 90\'',
-        // aerialLost: 'Проигранных воздушных единоборств',
-
-
-        // challengeLost: 'Обыгран на дриблинге',
-        // fouls: 'Совершенных фолов',
-
-        interceptionWon: 'Перехватов на 90\'',
-        totalTackle: 'Отборов на 90\'',
-        totalClearance: 'Выносов на 90\'',
-        outfielderBlock: 'Заблокировано ударов на 90\'',
-        totalOffside: 'Офсайдов',
-
-        // goalConversionPercentage: 'Конвертация ударов в голы в %',
-        // cleanSheet: 'Сухарей',
-        rating: 'Средний рейтинг sofascore',
+        // goalConversionPercentage: ['Конвертация ударов в голы в %', ''],
+        // cleanSheet: ['Сухарей', ''],
+        rating: ['Средний рейтинг sofascore', '🚀'],
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
       overallStatByMatch: {},
-      smallerIndicators: [
-        'matchesStarted',
-        // 'totalOppositionHalfPasses',
-        'accurateFinalThirdPasses',
-        'accuratePasses',
-      ],
-      biggerIndicators: [
-        'appearances',
-        // 'totalPasses',
-        'totalPasses',
-        'totalPasses',
-      ],
-      combinedIndicatorsName: {
-        matchesStarted: 'Матчей в старте',
-        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        accuratePasses: 'Успешных передач за игру',
-      },
-      combinedIndicators: {},
-      overallStatWithCombinedIndicators: {},
 
-      overallWidth: {},
+      overallWidth: [],
     }
   },
 
-  // computed: {
-  // },
-  // watch: {
-  //   async seasonTournamentIds() {
-  //     for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
-  //       console.log(seasonId)
-  //       const response = await this.$axios.get(
-  //         `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
-  //       )
-  //       const statsResponce = response.data.statistics
-  //       // данные для длины блоков
-  //       // {app: [], touches: [] ...}
-  //       for (const statName in this.statNames) {
-  //         if (!Array.isArray(this.tableNumbers[statName]))
-  //           this.tableNumbers[statName] = []
-  //         this.tableNumbers[statName].push(statsResponce[statName])
-  //       }
-  //     }
-  //     console.log('this.isLoaded')
-
-  //     this.isLoaded = true
-  //     this.getStatByMatch()
-  //     console.log(this.isLoaded)
-  //   },
-  // },
   methods: {
     async fetchMatchesIds() {
       for (let i = 0; i < 2; i++) {
@@ -206,19 +153,15 @@ export default {
         console.log(dividedIdsArray)
         console.log(i)
         i === 0
-        ? dividedIdsArray[i] = this.idsArray.slice(0, crucialMomentIndex)
-        : dividedIdsArray[i] = this.idsArray.slice(crucialMomentIndex)
+          ? (dividedIdsArray[i] = this.idsArray.slice(0, crucialMomentIndex))
+          : (dividedIdsArray[i] = this.idsArray.slice(crucialMomentIndex))
       }
       console.log('dividedIdsArray')
       console.log(dividedIdsArray)
-      // console.log('firstIdsArr')
-      // console.log(firstIdsArr)
-      // console.log('secondIdsArr')
-      // console.log(secondIdsArr)
 
       // проходимся по каждому и собираем статистику
       for (let i = 0; i < dividedIdsArray.length; i++) {
-        const idsArr = dividedIdsArray[i];
+        const idsArr = dividedIdsArray[i]
         for (const matchId of idsArr) {
           try {
             const response = await this.$axios.get(
@@ -234,19 +177,6 @@ export default {
           }
         }
       }
-      console.log(this.playerStatsArr)
-
-      // for (const matchId of secondIdsArr) {
-      //   try {
-      //     const response = await this.$axios.get(
-      //       `https://api.sofascore.com/api/v1/event/${matchId}/player/${this.playerId}/statistics`
-      //     )
-      //     const statInMatch = response.data.statistics
-      //     this.playerStatsArr2.push(statInMatch)
-      //   } catch (e) {
-      //     console.error(e)
-      //   }
-      // }
       this.uniteValues()
     },
 
@@ -254,188 +184,123 @@ export default {
       for (let i = 0; i < this.playerStatsArr.length; i++) {
         this.unitedValues[i] = {}
         for (const statName in this.statNames) {
-          console.log(statName)
+          // проверка на то, есть ли свойство с таким названием statName в объекте
           if (Object.hasOwnProperty.call(this.statNames, statName)) {
-            const summValue = this.playerStatsArr[i].reduce((summ, matchStat) => {
+            // вычисляю сумму отдельно взятого свойства (напр., ассистов)
+            const summValue = this.playerStatsArr[i].reduce(
+              (summ, matchStat) => {
+                if (!matchStat[statName]) {
+                  matchStat[statName] = 0
+                }
 
-              if (!matchStat[statName]) {
-                matchStat[statName] = 0
-              }
+                return summ + matchStat[statName] // данную сумму всех свойств используем для расчетов
+              },
+              0
+            )
 
-              return summ + matchStat[statName]
-            }, 0)
-            console.log('this.unitedValues[i].minutesPlayed')
-            // console.log(summValue)
-            console.log(this.unitedValues[i])
-
-            if (statName === 'rating') this.unitedValues[i][statName] = +(summValue / this.playerStatsArr[i].length).toFixed(1)
-            else if (statName === 'minutesPlayed') this.unitedValues[i][statName] = summValue
-            else this.unitedValues[i][statName] = +(summValue / this.unitedValues[i].minutesPlayed * 90).toFixed(2)
+            // если рейтинг, то просто сумму всех оценок делим на кол-во матчей
+            if (statName === 'rating')
+              this.unitedValues[i][statName] = +(
+                summValue / this.playerStatsArr[i].length
+              ).toFixed(2)
+            // если количество минут, то банально присваиваем значение
+            else if (statName === 'minutesPlayed')
+              this.unitedValues[i][statName] = +summValue
+            // если любая другая стата, то узнаем количество на 90 минут
+            else
+              this.unitedValues[i][statName] = +(
+                (summValue / this.unitedValues[i].minutesPlayed) *
+                90
+              ).toFixed(2)
             console.log(this.unitedValues[i][statName])
           }
         }
 
         this.unitedValues[i].matches = this.playerStatsArr[i].length
-        this.unitedValues[i].minutesPlayed = this.unitedValues[i].minutesPlayed / this.unitedValues[i].matches
+        this.unitedValues[i].minutesPlayed = +(
+          this.unitedValues[i].minutesPlayed / this.unitedValues[i].matches
+        ).toFixed(1)
       }
-    },
+      console.log('this.unitedValues[0]')
+      console.log(this.unitedValues[0])
+      console.log('this.unitedValues[1]')
+      console.log(this.unitedValues[1])
 
-
-    // async fetchSeasonsTournament() {
-    //   // по id игрока получаем id сезона в конкретной лиге. Зачастую нас будет интересовать нац лига, т.е. первая в списке
-    //   // (возможно, придется добавлять условие для того, какую лигу я ожидаю увидеть, и вставлять название лиги в проверку, передавая через параметры)
-    //   localStorage.setItem('playerId', this.playerId)
-    //   try {
-    //     const response = await this.$axios.get(
-    //       `https://api.sofascore.com/api/v1/player/${this.playerId}/statistics/seasons`
-    //     )
-    //     let succesSeasons = 0
-    //     while (succesSeasons < this.needSeasons.length) {
-    //       for (
-    //         let i = 0;
-    //         i < response.data.uniqueTournamentSeasons.length;
-    //         i++
-    //       ) {
-    //         const tournament = response.data.uniqueTournamentSeasons[i]
-    //         const tournamentName = tournament.uniqueTournament.name
-    //         if (
-    //           tournamentName === 'Premier League' ||
-    //           tournamentName === 'LaLiga' ||
-    //           tournamentName === 'Ligue 1' ||
-    //           tournamentName === 'Serie A' ||
-    //           tournamentName === 'Bundesliga' ||
-    //           tournamentName === 'Eredivisie'
-    //         ) {
-    //           // проверяем, есть ли в данном турнире нужный год (напр. Лукаку выступал в АПЛ в сезоне 21/22 - хотим выводить именно этот сезон в первую очередь)
-    //           const hasNeedSeason = tournament.seasons.some(
-    //             (season) => season.year === this.needSeasons[succesSeasons]
-    //           )
-    //           if (!hasNeedSeason) continue
-    //           const needSeason = tournament.seasons.find(
-    //             (season) => season.year === this.needSeasons[succesSeasons]
-    //           )
-    //           this.tournamentsIds.push(tournament.uniqueTournament.id)
-    //           this.seasonTournamentIds.push(needSeason.id)
-    //           this.seasonTournamentYears.push(needSeason.year)
-    //           succesSeasons++
-    //           if (succesSeasons === this.needSeasons.length) {
-    //             i = response.data.uniqueTournamentSeasons.length
-    //             break
-    //           }
-    //         }
-    //       }
-    //     }
-    //   } catch (e) {
-    //     console.error(e)
-    //   }
-    // },
-
-    getStatByMatch() {
-      for (const statName in this.tableNumbers) {
-        if (Object.hasOwnProperty.call(this.tableNumbers, statName)) {
-          const arrStatValue = this.tableNumbers[statName]
-          if (
-            statName === 'matchesStarted' ||
-            statName === 'appearances' ||
-            statName === 'cleanSheet' ||
-            // statName === 'assists' ||
-            // statName === 'bigChancesCreated' ||
-            // statName === 'penaltyGoals' ||
-            // statName === 'goals' ||
-            // statName === 'bigChancesMissed' ||
-            statName === 'goalsAssistsSum'
-          ) {
-            this.overallStatByMatch[statName] = arrStatValue
-          } else {
-            const arrStatValueByMatch = arrStatValue.map((statValue, idx) => {
-              if (statName.includes('Percentage')) {
-                return +statValue.toFixed(1)
-              } else {
-                return +(
-                  statValue / this.tableNumbers.appearances[idx]
-                ).toFixed(1)
-              }
-            })
-            // console.log(statName)
-            // console.log(arrStatValueByMatch)
-            this.overallStatByMatch[statName] = arrStatValueByMatch
-          }
-        }
-      }
-      console.log('getStatByMatch')
-      console.log(this.overallStatByMatch)
-      this.combineIndicatorsTotal()
-    },
-    combineIndicatorsTotal() {
-      if (Object.keys(this.overallStatByMatch).length !== 0) {
-        const statMatch = this.overallStatByMatch
-        const arrEngNames = Object.keys(this.combinedIndicatorsName)
-        for (const [idx, biggerVName] of this.biggerIndicators.entries()) {
-          const smallerVName = this.smallerIndicators[idx]
-          const indicatorName = arrEngNames[idx]
-
-          const arrVal = []
-          for (let i = 0; i < this.needSeasons.length; i++) {
-            const biggerValue = statMatch[biggerVName][i]
-            const smallerValue = statMatch[smallerVName][i]
-            const percentage = ((smallerValue / biggerValue) * 100).toFixed(1)
-            arrVal.push(`${smallerValue}/${biggerValue} (${percentage} %)`)
-          }
-          // this.overallStatByMatch[indicatorName] = arrVal
-          this.combinedIndicators[indicatorName] = arrVal
-        }
-        console.log('combinedIndicators')
-        console.log(this.combinedIndicators)
-      }
-      this.setOverallStatWithCombinedIndicators()
-    },
-    combineIndicatorsPercentage() {},
-    // filterKeyDublicate() {
-    //   for (const statName in this.overallStatByMatch) {
-    //     if (Object.hasOwnProperty.call(this.overallStatByMatch, statName)) {
-    //       const element = this.overallStatByMatch[statName];
-
-    //     }
-    //   }
-    //   const startKeys = Object.keys(this.overallStatByMatch)
-    //   const combinedKeys = Object.keys(this.combinedIndicators)
-    //   this.setOverallStatWithCombinedIndicators()
-    // },
-    setOverallStatWithCombinedIndicators() {
-      console.log('overallStatWithCombinedIndicators')
-      this.overallStatWithCombinedIndicators = Object.assign(
-        this.overallStatByMatch,
-        this.combinedIndicators
-      )
-      console.log(this.overallStatWithCombinedIndicators)
       this.setOverallWidth()
     },
+
     setOverallWidth() {
-      console.log('overallWidth')
-      const overallArr = Object.keys(this.overallStatWithCombinedIndicators)
-      for (const statName of overallArr) {
-        let statValues = this.overallStatWithCombinedIndicators[statName]
-        if (typeof statValues[0] === 'string') {
-          statValues = statValues.map((val) => {
-            console.log(val)
-            if (val.slice(-7, -3) === '00.0') return +val.slice(-8, -3)
-            console.log(+val.slice(-7, -3))
-            return +val.slice(-7, -3)
-          })
+      for (let k = 0; k < this.unitedValues.length; k++) {
+        this.overallWidth[k] = {}
+        for (const statName in this.unitedValues[0]) {
+          const comparisonArray = []
+          for (let i = 0; i < this.unitedValues.length; i++) {
+            const statValue = this.unitedValues[i][statName]
+            comparisonArray.push(statValue)
+          }
+          const maxValue = Math.max(...comparisonArray)
+          if (maxValue === 0) this.overallWidth[k][statName] = 0
+          else {
+            const statValuesPersentage = comparisonArray.map((value) =>
+              Math.round((value / maxValue) * 100)
+            )
+            this.overallWidth[k][statName] = statValuesPersentage[k]
+          }
+          console.log('overallWidth' + k)
+          console.log(this.overallWidth[k])
         }
-        console.log(statValues)
-        const maxValue = Math.max(...statValues)
-        const statValuesPersentage = statValues.map((value) => {
-          return Math.round((value / maxValue) * 100)
-        })
-        this.overallWidth[statName] = statValuesPersentage
       }
+      this.isLoaded = true
+      this.$forceUpdate()
+
+      // const overallArr = Object.keys(this.overallStatWithCombinedIndicators)
+      // for (const statName of overallArr) {
+      //   let statValues = this.overallStatWithCombinedIndicators[statName]
+      //   if (typeof statValues[0] === 'string') {
+      //     statValues = statValues.map((val) => {
+      //       console.log(val)
+      //       if (val.slice(-7, -3) === '00.0') return +val.slice(-8, -3)
+      //       console.log(+val.slice(-7, -3))
+      //       return +val.slice(-7, -3)
+      //     })
+      //   }
+      //   console.log(statValues)
+      //   const maxValue = Math.max(...statValues)
+      //   const statValuesPersentage = statValues.map((value) => {
+      //     return Math.round((value / maxValue) * 100)
+      //   })
+      //   this.overallWidth[statName] = statValuesPersentage
+      // }
     },
   },
 }
 </script>
 
 <style lang="scss">
+$blueGradient: linear-gradient(
+  to right top,
+  #5758b7,
+  #525cb7,
+  #4e60b7,
+  #4a64b6,
+  #4767b5,
+  #446fbb,
+  #4277c1,
+  #407fc6,
+  #3d8ed3,
+  #3b9edf,
+  #3badea,
+  #40bdf4
+);
+$redGradient: linear-gradient(
+  to right top,
+  #d41c95,
+  #df067c,
+  #e40763,
+  #e31d4a,
+  #de3232
+);
+
 .component:first-child .cols-comparison .stat-legend {
   opacity: 1;
 }
@@ -443,17 +308,13 @@ export default {
   opacity: 0;
 }
 .stats-table {
-  width: 190px;
   padding: 15px;
-  border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
-  margin: 70px 0 0;
-  color: white;
+  border: 1px solid rgba($color: #0a0a0a, $alpha: 0.1);
+  margin: 32px 0 0;
+  color: #221d1d;
   position: relative;
   z-index: 1;
   // скрываем матчи (хотя один раз нужно будет показать)
-  .cols-comparison:first-of-type {
-    display: none;
-  }
   .cols-comparison:nth-child(2) .stat-value .range-width {
     background-color: #4e50d8c2;
   }
@@ -478,13 +339,80 @@ export default {
   .cols-comparison:nth-child(9) .stat-value .range-width {
     background-color: #4e50d8c2;
   }
-  h4 {
-    min-height: 60px;
+
+  .comparison-title {
+    transform: translateY(-10px);
+  }
+
+  @mixin comparison-1 {
+    border-radius: 24px 0 0 24px;
+    text-align: right;
+    background-image: $blueGradient;
+  }
+  @mixin comparison-2 {
+    border-radius: 0 24px 24px 0;
+    text-align: left;
+    background-image: $redGradient;
+  }
+
+  .comparison-title {
+    .comparison-image {
+      max-width: 132px;
+      position: relative;
+      z-index: 2;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .comparison-item {
+      width: 220px;
+      padding: 12px 28px;
+      font-size: 20px;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+    }
+    .comparison-item-1 {
+      @include comparison-1;
+      transform: translateX(16px);
+    }
+    .comparison-item-2 {
+      @include comparison-2;
+      transform: translateX(-16px);
+    }
+  }
+
+  .cols-title {
+    width: 60px;
+    border-radius: 12px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba($color: #0a0a0a, $alpha: 0.1);
+    font-size: 36px;
+  }
+
+  .descr-title {
+    flex: 0 0 100%;
+    text-align: center;
+  }
+
+  .comparison-item {
+    padding: 0px 14px;
+  }
+  .comparison-item-0 {
+    @include comparison-1;
+    direction: rtl;
+  }
+  .comparison-item-1 {
+    @include comparison-2;
   }
   .stat-legend {
     min-height: 50px;
     font-size: 13px;
-    color: rgba($color: #fff, $alpha: 0.85);
+    color: #221d1d;
     line-height: 1;
     &-text {
       width: 300%;
