@@ -12,15 +12,16 @@ export default {
   data() {
     return {
       players: {
-        // 'Mason Mount': 836694,
+        // 'Antonio Rüdiger': 142622,
         // Jorginho: 132874,
         // 'Mateo Kovačić': 136710,
         // "N'Golo Kanté": 234148,
         // 'Ruben Loftus-Cheek': 284441,
-        'Thiago Silva': 33541,
-        // 'Rafael Leão': 851284,
-        Jorginho: 132874,
-        // 'Jarrod Bowen': 552884,
+        // 'Marc Cucurella': 794939,
+        // 'Mason Mount': 836694,
+        // 'Kai Havertz': 836705,
+        // 'Christian Pulišić': 817957,
+        'Edson Álvarez': 847151,
       },
     }
   },
@@ -32,11 +33,11 @@ export default {
 
 .container-fluid {
   // background-image: url('./static/123.jpg');
-  // background-repeat: no-repeat;
-  // background-size: 130%;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-attachment: fixed;
   background-position: 47% 100%;
-  background-size: auto;
+  // background-size: auto;
   background-image: url(https://kartinkin.net/uploads/posts/2021-07/1625811208_4-kartinkin-com-p-chernie-kubiki-oboi-krasivie-4.jpg);
   font-family: 'Tenor Sans', sans-serif;
 

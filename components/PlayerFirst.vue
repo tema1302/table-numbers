@@ -5,9 +5,9 @@
       h4.text-white.text-xl.col-span-1 {{ playerName }}
       .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
         .stat-legend.mx-1.relative
-          .stat-legend-text.absolute.font-semibold.tracking-wide {{ russStatName }} / {{ statName }}
-        .mx-1.text-xs {{ needSeasons[0] }}
+          .stat-legend-text.absolute.tracking-wider {{ russStatName }} / {{ statName }}
         .stat-value.mx-1.py-2(v-for="(value, i) in overallStatWithCombinedIndicators[statName]" :key="value")
+          .mx-1.text-xs {{ needSeasons[i] }}
           span.range {{ statName.includes('Percentage') ? `${value} %` : value }}
             span.range-width(:style="{ width: overallWidth[statName][i] + '%' }")
 </template>
@@ -32,10 +32,16 @@ export default {
       seasonTournamentYears: [],
       tournamentsIds: [],
       isLoaded: false,
-      needSeasons: ['21/22', '20/21', '19/20', '18/19'],
-      // needSeasons: ['21/22', '20/21', '19/20'],
-      // needSeasons: ['21/22', '20/21'],
-      // needSeasons: ['21/22'],
+      needSeasons: [
+        '22/23',
+        '21/22',
+        '20/21',
+        // '19/20',
+        // '18/19',
+        // '17/18',
+        // '16/17',
+        // '15/16',
+      ],
       statNames: {
         minutesPlayed: 'Минут в сезоне',
 
@@ -87,32 +93,33 @@ export default {
         tackles: "Отборов на 90'",
         clearances: "Выносов на 90'",
         blockedShots: "Заблокировано ударов на 90'",
-        fouls: "Нарушений правил на 90'",
-        yellowCards: "Желтых карточек на 90'",
+        // fouls: "Нарушений правил на 90'",
+        // yellowCards: "Желтых карточек на 90'",
+
         // errorLeadToShot: 'Ошибок, приведших к удару',
         // errorLeadToGoal: 'Ошибок, приведших к голу',
 
-        offsides: 'Офсайдов',
-        cleanSheet: 'Сухарей',
+        // offsides: 'Офсайдов',
+        // cleanSheet: 'Сухарей',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
       overallStatByMatch: {},
       smallerIndicators: [
         'matchesStarted',
-        // 'totalOppositionHalfPasses',
+        'totalOppositionHalfPasses',
         'accurateFinalThirdPasses',
         'accuratePasses',
       ],
       biggerIndicators: [
         'appearances',
-        // 'totalPasses',
+        'totalPasses',
         'totalPasses',
         'totalPasses',
       ],
       combinedIndicatorsName: {
         matchesStarted: 'Матчей в старте',
-        // totalOppositionHalfPasses: 'Пасов на чужой половине поля на 90\'',
+        totalOppositionHalfPasses: "Пасов на чужой половине поля на 90'",
         accurateFinalThirdPasses: 'Успешных передач в финальной трети',
         accuratePasses: "Успешных передач на 90'",
       },
@@ -314,8 +321,8 @@ export default {
   opacity: 0;
 }
 .stats-table {
-  width: 190px;
-  padding: 12px 8px;
+  width: 360px;
+  padding: 12px 16px;
   border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
   margin: 70px 0 0;
   color: white;
@@ -377,7 +384,7 @@ export default {
       font-size: 18px;
       &-width {
         width: 100%;
-        height: 75%;
+        height: 60%;
         display: block;
         border-radius: 8px;
         position: absolute;
