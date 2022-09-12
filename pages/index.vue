@@ -12,9 +12,9 @@ export default {
   data() {
     return {
       players: {
-        'Odilon Kossounou': 973437,
-        'Edmond Tapsoba': 883262,
-        'Jules Koundé': 827212,
+        // 'Conor Gallagher': 904970,
+        // 'Jude Bellingham': 991011,
+        // 'Youri Tielemans': 331737,
         // Neymar: 124712,
         // 'Kylian Mbappé': 826643,
         // 'Jérémie Boga': 367056,
@@ -22,6 +22,15 @@ export default {
         // 'Yannick Carrasco': 182001,
         // 'Jack Grealish': 189061,
         // 'Raheem Sterling': 138534,
+
+        // 'Hakim Ziyech': 249437,
+        // 'Conor Gallagher': 904970,
+
+        // 'Callum Hudson-Odoi': 867442,
+        // 'Mason Mount': 836694,
+        'Marc Cucurella': 794939,
+        'Reece James': 885908,
+        'César Azpilicueta': 21555,
       },
     }
   },
@@ -32,10 +41,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Tenor+Sans&family=Open+Sans+Condensed:wght@300&display=swap');
 
 .container-fluid {
-  background-image: url('./static/123.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: 47% 100%;
+  background-color: #7f5a83;
+  background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 120%);
   font-family: 'Tenor Sans', sans-serif;
 
   &::before {

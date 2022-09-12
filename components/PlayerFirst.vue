@@ -51,17 +51,25 @@ export default {
       isLoaded: false,
       // needSeasons: ['21/22', '20/21', '19/20', '18/19'],
       // needSeasons: ['21/22', '20/21', '19/20'],
-      needSeasons: ['21/22', '20/21'],
+      needSeasons: [
+        '22/23',
+        '21/22',
+        '20/21'
+        ],
       // needSeasons: ['21/22'],
       statNames: {
         appearances: 'Матчей в сезоне',
 
-        matchesStarted: 'Выходов в старте',
-        touches: 'Касаний (действий с мячом) за игру',
-        totalPasses: 'Пасов за игру',
-        accuratePasses: 'Успешных передач за игру',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // matchesStarted: 'Выходов в старте',
+        // touches: 'Касаний (действий с мячом) за игру',
+        // totalPasses: 'Пасов за игру',
+        // accuratePasses: 'Успешных передач за игру',
+        // accurateFinalThirdPasses: 'Успешных передач в финальной трети',
+        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+
+        totalCross: 'Кроссов за игру',
+        accurateCrosses: 'Успешных кроссов',
+        accurateCrossesPercentage: '% успешных кроссов',
 
         // bigChancesCreated: 'Явных голевых моментов создано за игру',
         // assists: 'Ассистов за игру',
@@ -109,22 +117,22 @@ export default {
       statsForBlocksWidth: {},
       overallStatByMatch: {},
       smallerIndicators: [
-        'matchesStarted',
-        // 'totalOppositionHalfPasses',
-        'accurateFinalThirdPasses',
-        'accuratePasses',
+        // 'matchesStarted',
+        // // 'totalOppositionHalfPasses',
+        // 'accurateFinalThirdPasses',
+        // 'accuratePasses',
       ],
       biggerIndicators: [
-        'appearances',
+        // 'appearances',
+        // // 'totalPasses',
         // 'totalPasses',
-        'totalPasses',
-        'totalPasses',
+        // 'totalPasses',
       ],
       combinedIndicatorsName: {
-        matchesStarted: 'Матчей в старте',
-        // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        accuratePasses: 'Успешных передач за игру',
+        // matchesStarted: 'Матчей в старте',
+        // // totalOppositionHalfPasses: 'Пасов на чужой половине поля за игру',
+        // accurateFinalThirdPasses: 'Успешных передач в финальной трети',
+        // accuratePasses: 'Успешных передач за игру',
       },
       combinedIndicators: {},
       overallStatWithCombinedIndicators: {},
@@ -231,7 +239,7 @@ export default {
               } else {
                 return +(
                   statValue / this.tableNumbers.appearances[idx]
-                ).toFixed(1)
+                ).toFixed(2)
               }
             })
             // console.log(statName)
