@@ -1,7 +1,7 @@
 <template lang="pug">
 .container-fluid.px-10.mx-auto
   .min-h-screen.flex.items-start.justify-center
-    PlayerFirst(v-for="(id, name, idx) in players" :playerId="id" :playerName="name" :key="name")
+    PlayerFirst(v-for="(id, name, idx) in teams" :teamId="id" :playerName="name" :key="name")
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   components: { PlayerFirst },
   data() {
     return {
-      players: {
+      teams: {
         // 'Antonio Rüdiger': 142622,
         // Jorginho: 132874,
         // 'Mateo Kovačić': 136710,
@@ -21,7 +21,7 @@ export default {
         // 'Mason Mount': 836694,
         // 'Kai Havertz': 836705,
         // 'Christian Pulišić': 817957,
-        'Edson Álvarez': 847151,
+        Chelsea: 38,
       },
     }
   },

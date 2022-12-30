@@ -1,7 +1,7 @@
 <template lang="pug">
   .component
     button.relative.button.inline-block.px-5.bg-blue-600.text-white.rounded-xl(@click="fetchSeasonsTournament") Get data
-    .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="playerId && seasonTournamentIds")
+    .stats-table.text-left.text-sm.grid.grid-cols-1(v-if="teamId && seasonTournamentIds")
       h4.text-white.text-xl.col-span-1 {{ playerName }}
       .cols-comparison(v-if="isLoaded", v-for="(russStatName, statName, idx) in statNames" :key="statName")
         .stat-legend.mx-1.relative
@@ -16,7 +16,7 @@
 export default {
   name: 'PlayerFirst',
   props: {
-    playerId: {
+    teamId: {
       type: Number,
       default: 0,
     },
@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      // playerId: localStorage.getItem('playerId') ?? '',
+      // teamId: localStorage.getItem('teamId') ?? '',
       seasonTournamentIds: [],
       seasonTournamentYears: [],
       tournamentsIds: [],
@@ -36,92 +36,86 @@ export default {
         '22/23',
         '21/22',
         '20/21',
-        // '19/20',
-        // '18/19',
+        '19/20',
+        '18/19',
         // '17/18',
         // '16/17',
         // '15/16',
       ],
       statNames: {
-        minutesPlayed: 'Минут в сезоне',
+        matches: 'Матчей в сезоне',
+        totalPasses: 'Пасов за игру',
+        accuratePassesPercentage: '% успешных передач за игру',
+        accurateFinalThirdPassesAgainst: 'Успешных передач в финальной трети',
+        accurateOwnHalfPassesAgainst:
+          'Успешных пасов на чужой половине поля за игру',
 
-        appearances: 'Матчей в сезоне',
-        matchesStarted: 'Выходов в старте',
-        touches: "Касаний (действий с мячом) на 90'",
-        totalPasses: "Пасов на 90'",
-        accuratePasses: "Успешных передач на 90'",
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        totalOppositionHalfPasses: "Пасов на чужой половине поля на 90'",
+        bigChancesCreated: 'Явных голевых моментов создано за игру',
+        assists: 'Ассистов за игру',
 
-        bigChancesCreated: "Явных голевых моментов создано на 90'",
-        assists: "Ассистов на 90'",
+        successfulDribbles: 'Успешного дриблинга за игру',
 
-        successfulDribbles: "Успешного дриблинга на 90'",
-        successfulDribblesPercentage: '% успешного дриблинга',
+        shots: 'Ударов за игру',
 
-        possessionWonAttThird: "Возвратов владения (финальная треть) на 90'",
+        shotsFromOutsideTheBox: 'Ударов за пределами штрафной за игру',
+        shotsOnTarget: 'Ударов по воротам за игру',
+        shotsOffTarget: 'Ударов мимо ворот за игру',
 
-        totalShots: "Ударов на 90'",
+        bigChancesMissed: 'Упущено голевых моментов за игру',
+        goalsScored: 'Забито голов',
+        headedGoals: 'Забито голов головой',
+        fastBreaks: 'Контратак',
+        fastBreakGoals: 'Забито голов после контратаки',
 
-        shotsFromOutsideTheBox: "Ударов за пределами штрафной на 90'",
-        shotsOnTarget: "Ударов по воротам на 90'",
-        shotsOffTarget: "Ударов мимо ворот на 90'",
-
-        bigChancesMissed: "Упущено голевых моментов на 90'",
-        goals: "Всего голов на 90'",
-        penaltyGoals: "Голов из пенальти на 90'",
-        goalsAssistsSum: 'Гол + пас',
-        goalConversionPercentage: 'Конвертация ударов в голы в %',
-
-        totalLongBalls: "Длинных передачи на 90'",
+        totalLongBalls: 'Длинных передачи за игру',
         accurateLongBallsPercentage: '% успешных длинных передач',
-        accurateChippedPasses: 'Успешных пасов с подсечкой',
-        keyPasses: "Ключевых передач на 90'",
+        corners: 'Угловых за игру',
 
-        dispossessed: "Лишен мяча без силового контакта на 90'",
-        possessionLost: "Потерей мяча на 90'",
+        possessionLost: 'Потерей мяча за игру',
 
-        aerialDuelsWon: "Выигранных воздушных единоборств на 90'",
+        aerialDuelsWon: 'Выигранных воздушных единоборств за игру',
         aerialDuelsWonPercentage: '% выигранных воздушных единоборств',
 
-        groundDuelsWon: "Выигранных наземных дуэлей на 90'",
+        groundDuelsWon: 'Выигранных наземных дуэлей за игру',
         groundDuelsWonPercentage: '% выигранных наземных дуэлей',
+        goalsConceded: 'Пропущенно голов',
+        errorsLeadingToGoal: 'Ошибок, приведенных к голу',
+        errorsLeadingToShot: 'Ошибок, приведших к удару',
 
         // на всякий случай
 
-        interceptions: "Перехватов на 90'",
-        tackles: "Отборов на 90'",
-        clearances: "Выносов на 90'",
-        blockedShots: "Заблокировано ударов на 90'",
-        // fouls: "Нарушений правил на 90'",
-        // yellowCards: "Желтых карточек на 90'",
+        interceptions: 'Перехватов за игру',
+        tackles: 'Отборов за игру',
+        clearances: 'Выносов за игру',
+        blockedScoringAttempt: 'Заблокировано ударов за игру',
+        fouls: 'Нарушений правил за игру',
+        yellowCards: 'Желтых карточек',
+        redCards: 'Желтых карточек',
 
-        // errorLeadToShot: 'Ошибок, приведших к удару',
-        // errorLeadToGoal: 'Ошибок, приведших к голу',
-
-        // offsides: 'Офсайдов',
-        // cleanSheet: 'Сухарей',
+        errorLeadToGoal: 'Ошибок, приведших к голу',
+        cleanSheet: 'Сухарей',
+        avgRating: 'Средний рейтинг по SofaScore',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
       overallStatByMatch: {},
       smallerIndicators: [
-        'matchesStarted',
-        'totalOppositionHalfPasses',
-        'accurateFinalThirdPasses',
-        'accuratePasses',
+        // 'matchesStarted',
+        // 'totalOppositionHalfPasses',
+        // 'accurateFinalThirdPasses',
+        // 'accuratePasses',
       ],
       biggerIndicators: [
-        'appearances',
-        'totalPasses',
-        'totalPasses',
-        'totalPasses',
+        // 'appearances',
+        // 'totalPasses',
+        // 'totalPasses',
+        // 'totalPasses',
       ],
       combinedIndicatorsName: {
-        matchesStarted: 'Матчей в старте',
-        totalOppositionHalfPasses: "Пасов на чужой половине поля на 90'",
-        accurateFinalThirdPasses: 'Успешных передач в финальной трети',
-        accuratePasses: "Успешных передач на 90'",
+        // matchesStarted: 'Матчей в старте',
+        // totalOppositionHalfPasses: "Пасов на чужой половине поля за игру",
+        // accurateFinalThirdPasses: 'Успешных передач в финальной трети',
+        // accuratePasses: "Успешных передач за игру",
       },
       combinedIndicators: {},
       overallStatWithCombinedIndicators: {},
@@ -137,7 +131,7 @@ export default {
       for (const [idx, seasonId] of this.seasonTournamentIds.entries()) {
         console.log(seasonId)
         const response = await this.$axios.get(
-          `/api/v1/player/${this.playerId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
+          `/api/v1/team/${this.teamId}/unique-tournament/${this.tournamentsIds[idx]}/season/${this.seasonTournamentIds[idx]}/statistics/overall`
         )
         const statsResponce = response.data.statistics
         // данные для длины блоков
@@ -159,10 +153,10 @@ export default {
     async fetchSeasonsTournament() {
       // по id игрока получаем id сезона в конкретной лиге. Зачастую нас будет интересовать нац лига, т.е. первая в списке
       // (возможно, придется добавлять условие для того, какую лигу я ожидаю увидеть, и вставлять название лиги в проверку, передавая через параметры)
-      localStorage.setItem('playerId', this.playerId)
+      localStorage.setItem('teamId', this.teamId)
       try {
         const response = await this.$axios.get(
-          `/api/v1/player/${this.playerId}/statistics/seasons`
+          `/api/v1/team/${this.teamId}/player-statistics/seasons`
         )
         let succesSeasons = 0
         while (succesSeasons < this.needSeasons.length) {
@@ -210,14 +204,14 @@ export default {
         if (Object.hasOwnProperty.call(this.tableNumbers, statName)) {
           const arrStatValue = this.tableNumbers[statName]
           if (
-            statName === 'matchesStarted' ||
-            statName === 'appearances' ||
+            statName === 'matches' ||
             statName === 'cleanSheet' ||
             statName === 'errorLeadToGoal' ||
             statName === 'errorLeadToShot' ||
+            statName === 'yellowCards' ||
+            statName === 'redCards' ||
             // statName === 'assists' ||
             // statName === 'bigChancesCreated' ||
-            // statName === 'penaltyGoals' ||
             // statName === 'goals' ||
             // statName === 'bigChancesMissed' ||
             statName === 'goalsAssistsSum'
@@ -228,10 +222,7 @@ export default {
               if (statName.includes('Percentage')) {
                 return +statValue.toFixed(1)
               } else {
-                return +(
-                  (statValue / this.tableNumbers.minutesPlayed[idx]) *
-                  90
-                ).toFixed(2)
+                return +(statValue / this.tableNumbers.matches[idx]).toFixed(2)
               }
             })
             // console.log(statName)
@@ -342,7 +333,7 @@ export default {
   }
 
   h4 {
-    min-height: 60px;
+    min-height: 44px;
     position: sticky;
     display: flex;
     align-items: center;
@@ -367,7 +358,7 @@ export default {
     color: rgba($color: #fff, $alpha: 0.85);
     line-height: 1;
     &-text {
-      width: 300%;
+      // width: 300%;
       // text-align: center;
       // left: 50%;
       // transform: translateX(-50%);
