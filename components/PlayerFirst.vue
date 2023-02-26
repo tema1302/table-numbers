@@ -46,9 +46,9 @@ export default {
         matches: 'Матчей в сезоне',
         totalPasses: 'Пасов за игру',
         accuratePassesPercentage: '% успешных передач за игру',
-        accurateFinalThirdPassesAgainst: 'Успешных передач в финальной трети',
         accurateOwnHalfPassesAgainst:
           'Успешных пасов на чужой половине поля за игру',
+        accurateFinalThirdPassesAgainst: 'Успешных передач в финальной трети',
 
         bigChancesCreated: 'Явных голевых моментов создано за игру',
         assists: 'Ассистов за игру',
@@ -90,11 +90,11 @@ export default {
         blockedScoringAttempt: 'Заблокировано ударов за игру',
         fouls: 'Нарушений правил за игру',
         yellowCards: 'Желтых карточек',
-        redCards: 'Желтых карточек',
+        redCards: 'Красных карточек',
 
-        errorLeadToGoal: 'Ошибок, приведших к голу',
-        cleanSheet: 'Сухарей',
-        avgRating: 'Средний рейтинг по SofaScore',
+        // errorLeadToGoal: 'Ошибок, приведших к голу',
+        // cleanSheet: 'Сухарей',
+        // avgRating: 'Средний рейтинг по SofaScore',
       },
       tableNumbers: {},
       statsForBlocksWidth: {},
@@ -210,6 +210,8 @@ export default {
             statName === 'errorLeadToShot' ||
             statName === 'yellowCards' ||
             statName === 'redCards' ||
+            statName === 'fastBreaks' ||
+            statName === 'fastBreakGoals' ||
             // statName === 'assists' ||
             // statName === 'bigChancesCreated' ||
             // statName === 'goals' ||
